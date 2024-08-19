@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Board;
 using Items;
+using UnityEngine;
 
 namespace Data_Management
 {
@@ -15,10 +17,11 @@ namespace Data_Management
         public bool isMuted;
         public bool isVibrationOff;
     }
-    
+
     public static class PlayerDataManager
     {
         public static PlayerData playerData;
+        public static List<BoardGenerator.Point> mapOrder;
 
         /// <summary>
         /// Loads all the data from the files.
@@ -27,6 +30,7 @@ namespace Data_Management
         public static void LoadData()
         {
             playerData = FileHandler.ReadFromJson<PlayerData>("PlayerData.json");
+            LoadMapOrder();
         }
         
         /// <summary>
@@ -37,7 +41,7 @@ namespace Data_Management
         {
             FileHandler.SaveToJson(playerData, "PlayerData.json");
         }
-        
+
         /// <summary>
         /// Get the amount of the item you wanted.
         /// </summary>
@@ -95,6 +99,27 @@ namespace Data_Management
         {
             playerData.strawberryAmount++;
             SaveData();
+        }
+        
+        /// <summary>
+        /// Saves the new map.
+        /// </summary>
+        /// <returns></returns>
+        public static void SaveMapOrder(List<BoardGenerator.Point> newMapOrder)
+        {
+            mapOrder = newMapOrder;
+            //Debug.Log(mapOrder.Count);
+            FileHandler.SaveListToJson(mapOrder, "MapOrder.json");
+        }
+        
+        /// <summary>
+        /// Loads the new map.
+        /// </summary>
+        /// <returns></returns>
+        public static void LoadMapOrder()
+        {
+            mapOrder = FileHandler.ReadListFromJson<BoardGenerator.Point>("MapOrder.json");
+            Debug.Log(mapOrder.Count);
         }
     }
 }
