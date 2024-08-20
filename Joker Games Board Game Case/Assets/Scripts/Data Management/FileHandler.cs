@@ -1,128 +1,164 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System;
 using System.Linq;
 using UnityEngine;
 
-public static class FileHandler
+namespace Data_Management
 {
-    /// <summary>
-    /// Saves the list as a json file.
-    /// </summary>
-    /// <returns></returns>
-    public static void SaveListToJson<T>(List<T> toSave, string fileName)
+    public static class FileHandler
     {
-        //Debug.Log(GetPath(fileName));
-        string content = JsonHelper.ToJson<T>(toSave.ToArray());
-        WriteFile(GetPath(fileName), content);
-    }
-
-    /// <summary>
-    /// Saves the variable with the given type as a json file.
-    /// </summary>
-    /// <returns></returns>
-    public static void SaveToJson<T>(T toSave, string fileName)
-    {
-        string content = JsonUtility.ToJson(toSave);
-        WriteFile(GetPath(fileName), content);
-    }
-    
-    /// <summary>
-    /// returns a list with the given file name.
-    /// </summary>
-    /// <returns></returns>
-    public static List<T> ReadListFromJson<T>(string fileName)
-    {
-        string content = ReadFile(GetPath(fileName));
-
-        if (string.IsNullOrEmpty(content) || content == "{}") return new List<T>();
-
-        List<T> res = JsonHelper.FromJson<T>(content).ToList();
-        return res;
-    }
-    
-    /// <summary>
-    /// returns a variable with the desired type.
-    /// </summary>
-    /// <returns></returns>
-    public static T ReadFromJson<T>(string fileName)
-    {
-        string content = ReadFile(GetPath(fileName));
-
-        if (string.IsNullOrEmpty(content) || content == "{}") return default(T);
-
-        T res = JsonUtility.FromJson<T>(content);
-        return res;
-    }
-
-    /// <summary>
-    /// Returns the save path as a string.
-    /// </summary>
-    /// <returns></returns>
-    private static string GetPath(string fileName)
-    {
-        //Debug.Log(Application.persistentDataPath);
-        return Application.persistentDataPath + "/" + fileName;
-    }
-
-    /// <summary>
-    /// Saves the file into the given path.
-    /// </summary>
-    /// <returns></returns>
-    private static void WriteFile(string path, string content)
-    {
-        FileStream fileStream = new FileStream(path, FileMode.Create);
-
-        using (StreamWriter writer = new StreamWriter(fileStream))
+        /// <summary>
+        /// Saves the list as a JSON file.
+        /// </summary>
+        public static void SaveListToJson<T>(List<T> toSave, string fileName)
         {
-            writer.Write(content);
-        }
-    }
-
-    /// <summary>
-    /// Returns the file as a string from the given path.
-    /// </summary>
-    /// <returns></returns>
-    private static string ReadFile(string path)
-    {
-        if (File.Exists(path))
-        {
-            using (StreamReader reader = new StreamReader(path))
+            try
             {
-                string content = reader.ReadToEnd();
-                return content;
+                string content = JsonHelper.ToJson(toSave.ToArray());
+                WriteFile(GetPath(fileName), content);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error saving list to JSON: {ex.Message}");
             }
         }
 
-        return "";
-    }
-}
+        /// <summary>
+        /// Saves the variable with the given type as a JSON file.
+        /// </summary>
+        public static void SaveToJson<T>(T toSave, string fileName)
+        {
+            try
+            {
+                string content = JsonUtility.ToJson(toSave);
+                WriteFile(GetPath(fileName), content);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error saving data to JSON: {ex.Message}");
+            }
+        }
 
-public static class JsonHelper
-{
-    public static T[] FromJson<T>(string json)
-    {
-        Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(json);
-        return wrapper.Items;
+        /// <summary>
+        /// Returns a list with the given file name.
+        /// </summary>
+        public static List<T> ReadListFromJson<T>(string fileName)
+        {
+            try
+            {
+                string content = ReadFile(GetPath(fileName));
+
+                if (string.IsNullOrEmpty(content) || content == "{}")
+                    return new List<T>();
+
+                return JsonHelper.FromJson<T>(content).ToList();
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error reading list from JSON: {ex.Message}");
+                return new List<T>();
+            }
+        }
+
+        /// <summary>
+        /// Returns a variable with the desired type.
+        /// </summary>
+        public static T ReadFromJson<T>(string fileName)
+        {
+            try
+            {
+                string content = ReadFile(GetPath(fileName));
+
+                if (string.IsNullOrEmpty(content) || content == "{}")
+                    return default;
+
+                return JsonUtility.FromJson<T>(content);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error reading data from JSON: {ex.Message}");
+                return default;
+            }
+        }
+
+        /// <summary>
+        /// Returns the save path as a string.
+        /// </summary>
+        private static string GetPath(string fileName)
+        {
+            return Path.Combine(Application.persistentDataPath, fileName);
+        }
+
+        /// <summary>
+        /// Saves the file to the given path.
+        /// </summary>
+        private static void WriteFile(string path, string content)
+        {
+            try
+            {
+                using (FileStream fileStream = new FileStream(path, FileMode.Create))
+                using (StreamWriter writer = new StreamWriter(fileStream))
+                {
+                    writer.Write(content);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error writing file: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Returns the file as a string from the given path.
+        /// </summary>
+        private static string ReadFile(string path)
+        {
+            try
+            {
+                if (File.Exists(path))
+                {
+                    using (StreamReader reader = new StreamReader(path))
+                    {
+                        return reader.ReadToEnd();
+                    }
+                }
+                return "";
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error reading file: {ex.Message}");
+                return "";
+            }
+        }
     }
 
-    public static string ToJson<T>(T[] array)
+    public static class JsonHelper
     {
-        Wrapper<T> wrapper = new Wrapper<T>();
-        wrapper.Items = array;
-        return JsonUtility.ToJson(wrapper);
-    }
+        public static T[] FromJson<T>(string json)
+        {
+            Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(json);
+            return wrapper.Items;
+        }
 
-    public static string ToJson<T>(T[] array, bool prettyPrint)
-    {
-        Wrapper<T> wrapper = new Wrapper<T>();
-        wrapper.Items = array;
-        return JsonUtility.ToJson(wrapper, prettyPrint);
-    }
+        public static string ToJson<T>(T[] array)
+        {
+            Wrapper<T> wrapper = new Wrapper<T>();
+            wrapper.Items = array;
+            return JsonUtility.ToJson(wrapper);
+        }
 
-    [Serializable]
-    private class Wrapper<T>
-    {
-        public T[] Items;
+        public static string ToJson<T>(T[] array, bool prettyPrint)
+        {
+            Wrapper<T> wrapper = new Wrapper<T>();
+            wrapper.Items = array;
+            return JsonUtility.ToJson(wrapper, prettyPrint);
+        }
+
+        [Serializable]
+        private class Wrapper<T>
+        {
+            public T[] Items;
+        }
     }
 }

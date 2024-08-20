@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Board;
 using Items;
@@ -5,69 +6,115 @@ using UnityEngine;
 
 namespace Data_Management
 {
-    public class PlayerData
+    [Serializable] // Required for JSON serialization
+    public struct PlayerData
     {
+        // Public fields or properties to be serialized
+        public string playerName;
+        public List<Item> itemList;
+        public int currentGrid;
+        public int diceRoll;
+        public int diceAmount;
+        public int appleAmount;
+        public int pearAmount;
+        public int strawberryAmount;
+
+        public bool isMuted;
+        public bool isVibrationOff;
+
+        // Constructor with default values
         public PlayerData(List<Item> itemList)
         {
-            this.ItemList = itemList;
+            playerName = "Player";
+            this.itemList = itemList ?? new List<Item>();
+            currentGrid = 0;
+            diceRoll = 0;
+            diceAmount = 1;
+            appleAmount = 0;
+            pearAmount = 0;
+            strawberryAmount = 0;
+            isMuted = false;
+            isVibrationOff = false;
+
+            CalculateFruitAmounts();
         }
 
-        // Public properties with encapsulation for all fields
-        public string PlayerName { get; set; }
-        public List<Item> ItemList { get; set; }
-        public int DiceRoll { get; set; }
-        public int DiceAmount { get; set; }
-        public int AppleAmount { get; set; }
-        public int PearAmount { get; set; }
-        public int StrawberryAmount { get; set; }
+        // Method to calculate the fruit amounts based on the items in the list
+        private void CalculateFruitAmounts()
+        {
+            appleAmount = 0;
+            pearAmount = 0;
+            strawberryAmount = 0;
 
-        public bool IsMuted { get; set; }
-        public bool IsVibrationOff { get; set; }
+            foreach (var item in itemList)
+            {
+                switch (item.type)
+                {
+                    case ItemType.Apple:
+                        appleAmount++;
+                        break;
+                    case ItemType.Pear:
+                        pearAmount++;
+                        break;
+                    case ItemType.Strawberry:
+                        strawberryAmount++;
+                        break;
+                }
+            }
+        }
     }
 
     public static class PlayerDataManager
     {
         public static PlayerData PlayerData;
-        public static List<BoardGenerator.Point> mapOrder;
-
+        public static List<BoardGenerator.Point> MapOrder;
 
         #region Data Management
 
         /// <summary>
-        /// Loads all the data from the files.
+        /// Loads all the data from the files with error handling.
         /// </summary>
-        /// <returns></returns>
         public static void LoadData()
         {
-            PlayerData = FileHandler.ReadFromJson<PlayerData>("PlayerData.json");
-            LoadMapOrder();
+            try
+            {
+                PlayerData = FileHandler.ReadFromJson<PlayerData>("PlayerData.json");
+                if (PlayerData.diceAmount <= 0) PlayerData.diceAmount = 1;
+                SaveData();
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to load data: {ex.Message}");
+                PlayerData = new PlayerData(new List<Item>());
+                SaveData();
+            }
         }
-        
+
         /// <summary>
-        /// Saves all the data from the files.
+        /// Saves all the data to the files with error handling.
         /// </summary>
-        /// <returns></returns>
         public static void SaveData()
         {
-            FileHandler.SaveToJson(PlayerData, "PlayerData.json");
+            try
+            {
+                FileHandler.SaveToJson(PlayerData, "PlayerData.json");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to save data: {ex.Message}");
+            }
         }
 
         #endregion
 
-
         #region Inventory Management
 
-        /// <summary>
-        /// Get the amount of the item you wanted.
-        /// </summary>
-        /// <returns></returns>
         public static int GetCertainItemAmount(ItemType itemType)
         {
-            if (PlayerData.ItemList.Count <= 0) return 0;
-            
+            if (PlayerData.itemList == null || PlayerData.itemList.Count <= 0) return 0;
+
             int count = 0;
-            
-            foreach (var item in PlayerData.ItemList)
+            foreach (var item in PlayerData.itemList)
             {
                 if (item.type == itemType)
                     count++;
@@ -75,87 +122,102 @@ namespace Data_Management
 
             return count;
         }
-        
-        /// <summary>
-        /// Sets the amount of items collected.
-        /// </summary>
-        /// <returns></returns>
+
         public static void Collect(int amount, Item item)
         {
-            PlayerData.ItemList.Add(item);
+            if (amount <= 0)
+            {
+                Debug.LogWarning("Amount to collect must be greater than zero.");
+                return;
+            }
+
+            if (PlayerData.itemList == null) PlayerData.itemList = new List<Item>();
+            PlayerData.itemList.Add(item);
             SaveData();
         }
 
-        /// <summary>
-        /// Sets the amount of apples collected.
-        /// </summary>
-        /// <returns></returns>
         public static void CollectApple(int amount)
         {
-            PlayerData.AppleAmount++;
+            if (amount <= 0)
+            {
+                Debug.LogWarning("Amount to collect must be greater than zero.");
+                return;
+            }
+
+            PlayerData.appleAmount += amount;
             SaveData();
         }
-        
-        /// <summary>
-        /// Sets the amount of pears collected.
-        /// </summary>
-        /// <returns></returns>
+
         public static void CollectPear(int amount)
         {
-            PlayerData.PearAmount++;
+            if (amount <= 0)
+            {
+                Debug.LogWarning("Amount to collect must be greater than zero.");
+                return;
+            }
+
+            PlayerData.pearAmount += amount;
             SaveData();
         }
-        
-        /// <summary>
-        /// Sets the amount of strawberries collected.
-        /// </summary>
-        /// <returns></returns>
+
         public static void CollectStrawberry(int amount)
         {
-            PlayerData.StrawberryAmount++;
+            if (amount <= 0)
+            {
+                Debug.LogWarning("Amount to collect must be greater than zero.");
+                return;
+            }
+
+            PlayerData.strawberryAmount += amount;
             SaveData();
         }
-        
+
         #endregion
 
         #region Dice Management
 
-        /// <summary>
-        /// Updates the amount of dices that gets thrown simultaneously.
-        /// </summary>
-        /// <returns></returns>
         public static void UpdateDiceAmount(int amount)
         {
-            PlayerData.DiceAmount = amount;
+            if (amount <= 0)
+            {
+                Debug.LogWarning("Dice amount must be greater than zero.");
+                return;
+            }
+
+            PlayerData.diceAmount = amount;
             SaveData();
         }
 
         #endregion
 
-
         #region Map Management
 
-        /// <summary>
-        /// Saves the new map.
-        /// </summary>
-        /// <returns></returns>
         public static void SaveMapOrder(List<BoardGenerator.Point> newMapOrder)
         {
-            mapOrder = newMapOrder;
-            //Debug.Log(mapOrder.Count);
-            FileHandler.SaveListToJson(mapOrder, "MapOrder.json");
+            MapOrder = newMapOrder;
+            try
+            {
+                FileHandler.SaveListToJson(MapOrder, "MapOrder.json");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to save map order: {ex.Message}");
+            }
         }
 
-        /// <summary>
-        /// Loads the new map.
-        /// </summary>
-        /// <returns></returns>
         public static void LoadMapOrder()
         {
-            mapOrder = FileHandler.ReadListFromJson<BoardGenerator.Point>("MapOrder.json");
-            Debug.Log(mapOrder.Count);
+            try
+            {
+                MapOrder = FileHandler.ReadListFromJson<BoardGenerator.Point>("MapOrder.json");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to load map order: {ex.Message}");
+                MapOrder = new List<BoardGenerator.Point>(); // Initialize empty list in case of failure.
+            }
         }
-        
+
         #endregion
     }
 }

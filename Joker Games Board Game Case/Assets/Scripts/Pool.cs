@@ -205,6 +205,22 @@ public class Pool : MonoBehaviour
             }
         }
     }
+    
+    /// <summary>
+    /// Deactivates the given item and returns it to its' pool
+    /// </summary>
+    /// <param name="member"></param>
+    /// <param name="poolItemType"></param>
+    /// <returns></returns>
+    public void DeactivateObject(GameObject member, PoolItemType poolItemType, float time)
+    {
+        StartCoroutine(DeactivationTimer());
+        IEnumerator DeactivationTimer()
+        {
+            yield return new WaitForSeconds(time);
+            DeactivateObject(member, poolItemType);
+        }
+    }
 
     /// <summary>
     /// Randomizes the selected pool

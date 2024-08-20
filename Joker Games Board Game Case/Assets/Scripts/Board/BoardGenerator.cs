@@ -59,7 +59,7 @@ namespace Board
         
         private void LoadMap()
         {
-            _mapOrder = PlayerDataManager.mapOrder;
+            _mapOrder = PlayerDataManager.MapOrder;
             
             if (_mapOrder is not { Count: > 0 })
             {
@@ -196,8 +196,11 @@ namespace Board
                 //Debug.Log($"Point: ({point.x}, {point.y}), ItemType: {point.itemType}, ItemAmount: {point.itemAmount}");
                 
                 // Spawn a grid object at the real-world position corresponding to the point
-                Pool.Instance.SpawnObject(GetRealWorldPositionOfTheGrid(2, point), PoolItemType.Grid, null);
+                var grid = Pool.Instance.SpawnObject(GetRealWorldPositionOfTheGrid(2, point), PoolItemType.Grid, null);
+                GameManager.Instance.gameMap.Add(grid.transform);
             }
+            
+            Actions.GameStart?.Invoke();
         }
 
         // Main method to generate the entire board

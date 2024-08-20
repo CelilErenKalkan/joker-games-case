@@ -8,18 +8,17 @@ namespace Dice
     {
         private GameManager _gameManager;
         private Rigidbody _rigidbody;
-        private MeshCollider _meshCollider;
+        private BoxCollider _boxCollider;
 
         private Vector3 initPosition;
         private Quaternion initRotation;
-        private bool _isHolding;
+        private bool _once;
 
         private bool IsDiceStill()
         {
             Vector3 velocity;
             return (velocity = _rigidbody.velocity).x < 0.05f && velocity.y < 0.05f &&
-                   velocity.x > -0.05f && velocity.y > -0.05f
-                   || transform.position.y <= -5;
+                   velocity.x > -0.05f && velocity.y > -0.05f;
         }
         
         // Checks if the dice is grounded.
@@ -30,57 +29,59 @@ namespace Dice
         {
             _gameManager = GameManager.Instance;
             if (TryGetComponent(out Rigidbody rb)) _rigidbody = rb;
-            if (TryGetComponent(out MeshCollider meshCollider)) _meshCollider = meshCollider;
+            if (TryGetComponent(out BoxCollider boxCollider)) _boxCollider = boxCollider;
             initPosition = transform.localPosition;
             initRotation = transform.localRotation;
         }
         
-        // Start is called before the first frame update
-        private void Start()
+        private void OnEnable()
         {
             SetDice();
             Throw();
+            _once = false;
         }
 
         // Detects the result of the dice by using cross and dot product
         private void DetectResult()
         {
-            if (transform.position.y < 0) return;
-            Vector3 position = transform.position;
-            position.y = 0;
+            int result = 1;
             if (  Vector3.Cross(Vector3.up, transform.right).magnitude < 0.5f) //x axis a.b.sin theta < 45
             {
-                if (Vector3.Dot(Vector3.up, transform.right) > 0) // 1st Face
+                if (Vector3.Dot(Vector3.up, transform.right) > 0) // 6th Face
                 {
-                    
+                    result = 6;
                 }
-                else // 3rd Face
+                else // 1st Face
                 {
-                    
+                    result = 1;
                 }
             }
             else if ( Vector3.Cross(Vector3.up, transform.up).magnitude < 0.5f) //y axis
             {
-                if (Vector3.Dot(Vector3.up, transform.up) > 0) // 0th Face
+                if (Vector3.Dot(Vector3.up, transform.up) > 0) // 4th Face
                 {
-                    
+                    result = 4;
                 }
-                else // 2nd Face
+                else // 3rd Face
                 {
-                    
+                    result = 3;
                 }
             }
             else if ( Vector3.Cross(Vector3.up, transform.forward).magnitude < 0.5f) //z axis
             {
-                if (Vector3.Dot(Vector3.up, transform.forward) > 0) // 4th Face
+                if (Vector3.Dot(Vector3.up, transform.forward) > 0) // 5th Face
                 {
-                    
+                    result = 5;
                 }
-                else // 5th Face
+                else // 2nd Face
                 {
-                    
+                    result = 2;
                 }
             }
+            
+            Debug.Log(result);
+            Actions.DiceResult?.Invoke(result);
+            
         }
         
         // Sets the dice sitting on the platform with a random rotation considering faces.
@@ -100,13 +101,13 @@ namespace Dice
             _rigidbody.isKinematic = false;
             _rigidbody.useGravity = true;
 
-            float dirX = Random.Range(100, 1000); // random x
-            float dirY = Random.Range(100, 1000); // random y
-            float dirZ = Random.Range(50, 100); // random z
+            float dirX = Random.Range(500, 1000); // random x
+            float dirY = Random.Range(500, 1000); // random y
+            float dirZ = Random.Range(500, 1000); // random z
 
             _rigidbody.AddRelativeTorque(dirX, dirY, dirZ);
-            _rigidbody.AddForce(transform.up * Random.Range(-600, -300));
-            _rigidbody.AddForce(transform.forward * Random.Range(300, 600));
+            _rigidbody.AddForce(Vector3.up * Random.Range(-800, -500));
+            _rigidbody.AddForce(Vector3.forward * Random.Range(500, 800));
         }
         
         // Resets dice variables before relaunch
@@ -118,16 +119,21 @@ namespace Dice
             
             _rigidbody.isKinematic = true;
             _rigidbody.useGravity = false;
-            _meshCollider.enabled = true;
+            _boxCollider.enabled = true;
             transform.localPosition = initPosition;
             transform.localRotation = initRotation;
             SetRandomFaceOnPlatform();
+            Pool.Instance.DeactivateObject(gameObject, PoolItemType.Dice, 0.1f);
         }
 
         // Update is called once per frame
         private void Update()
         {
-            
+            if (IsDiceStill() && IsDiceGrounded() && !_once)
+            {
+                _once = true;
+                Reset();
+            }
         }
     }
 }
