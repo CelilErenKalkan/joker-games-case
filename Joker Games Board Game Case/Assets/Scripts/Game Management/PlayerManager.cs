@@ -1,5 +1,6 @@
 using System.Collections;
 using Data_Management;
+using Items;
 using UnityEngine;
 using Utils;
 
@@ -24,10 +25,14 @@ namespace Game_Management
         
         }
 
+        private void CollectItems()
+        {
+            
+        }
+        
         private void SetCurrentGrid()
         {
             PlayerDataManager.PlayerData.currentGrid = _currentGrid;
-            PlayerDataManager.SaveData();
         }
 
         public IEnumerator MoveForward(int moveTimes)
@@ -39,7 +44,9 @@ namespace Game_Management
                 0.1f.GetWait();
             }
 
+            CollectItems();
             SetCurrentGrid();
+            PlayerDataManager.SaveData();
             Actions.NextTurn?.Invoke();
             yield return null;
         }
