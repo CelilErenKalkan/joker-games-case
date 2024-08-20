@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Data_Management;
+using Game_Management;
 using Items;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -32,12 +33,30 @@ namespace Board
         [SerializeField] [Range(10, 100)] private int boardSize; // Size of the grid (NxN)
         private List<Point> _mapOrder; // List to store the generated path of Points
 
-        private void Start()
+        private void OnEnable()
         {
-            LoadMap();
-            GenerateGridObjects();
+            Actions.NewGame += NewMap;
+            Actions.LoadGame += LoadMap;
         }
 
+        private void OnDisable()
+        {
+            Actions.NewGame -= NewMap;
+            Actions.LoadGame -= LoadMap;
+        }
+        
+        private void Start()
+        {
+            
+        }
+
+        private void NewMap()
+        {
+            _mapOrder = new List<Point>();
+            GenerateBoard(); // Trigger the board generation process when the game starts   
+            GenerateGridObjects();
+        }
+        
         private void LoadMap()
         {
             _mapOrder = PlayerDataManager.mapOrder;
@@ -46,6 +65,8 @@ namespace Board
             {
                 GenerateBoard(); // Trigger the board generation process when the game starts   
             }
+            
+            GenerateGridObjects();
         }
 
         // Method to find a path from the starting point to the target point
