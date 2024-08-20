@@ -7,8 +7,8 @@ namespace Game_Management
     {
         // Public static property to access the instance
         public static UIManager Instance { get; private set; }
-        public GameObject panelMainGameObject, menuGameObject;
-    
+        public GameObject panelMainGameObject, menuGameObject, buttonDiceRoll;
+
 
         // Ensure that the instance is unique and handle duplication
         private void Awake()
@@ -30,6 +30,17 @@ namespace Game_Management
             panelMainGameObject.SetActive(false);
             Actions.LoadGame?.Invoke();
         }
+        
+        public void UpdateDiceAmount()
+        {
+            
+        }
+        
+        public void RollDice()
+        {
+            buttonDiceRoll.SetActive(false);
+            Actions.RollDice?.Invoke(PlayerDataManager.PlayerData.DiceAmount);
+        }
     
         // Start is called before the first frame update
         private void Start()
@@ -38,12 +49,6 @@ namespace Game_Management
             {
                 menuGameObject.transform.GetChild(0).gameObject.SetActive(false);
             }
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
         }
     }
 }

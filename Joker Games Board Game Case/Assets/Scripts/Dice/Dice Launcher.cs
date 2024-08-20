@@ -1,6 +1,5 @@
-using System.Collections;
+using Game_Management;
 using UnityEngine;
-using Utils;
 
 namespace Dice
 {
@@ -8,13 +7,21 @@ namespace Dice
     {
         private Pool _pool;
         
+        private void OnEnable()
+        {
+            Actions.RollDice += LaunchDice;
+        }
+
+        private void OnDisable()
+        {
+            Actions.RollDice -= LaunchDice;
+        }
+        
         // Start is called before the first frame update
         private void Start()
         {
             _pool = Pool.Instance;
             //StartCoroutine(AutomaticDiceLauncher());
-            int amount = Random.Range(1, 6);
-            LaunchDice(amount);
         }
 
         // Update is called once per frame
@@ -30,21 +37,11 @@ namespace Dice
             return new Vector3(x, defaultPos.y, defaultPos.z);
         }
 
-        public void LaunchDice(int diceAmount)
+        private void LaunchDice(int amount)
         {
-            for (var i = 0; i < diceAmount; i++)
+            for (var i = 0; i < amount; i++)
             {
                 _pool.SpawnObject(SelectRandomSpawnPoint(), PoolItemType.Dice, null);
-            }
-        }
-
-        private IEnumerator AutomaticDiceLauncher()
-        {
-            while (true)
-            {
-                int amount = Random.Range(1, 6);
-                LaunchDice(amount);
-                10.0f.GetWait();
             }
         }
     }

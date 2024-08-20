@@ -5,23 +5,33 @@ using UnityEngine;
 
 namespace Data_Management
 {
-    public struct PlayerData
+    public class PlayerData
     {
-        public string playerName;
-        public List<Item> itemList;
-        public int diceRoll;
-        public int appleAmount;
-        public int pearAmount;
-        public int strawberryAmount;
+        public PlayerData(List<Item> itemList)
+        {
+            this.ItemList = itemList;
+        }
 
-        public bool isMuted;
-        public bool isVibrationOff;
+        // Public properties with encapsulation for all fields
+        public string PlayerName { get; set; }
+        public List<Item> ItemList { get; set; }
+        public int DiceRoll { get; set; }
+        public int DiceAmount { get; set; }
+        public int AppleAmount { get; set; }
+        public int PearAmount { get; set; }
+        public int StrawberryAmount { get; set; }
+
+        public bool IsMuted { get; set; }
+        public bool IsVibrationOff { get; set; }
     }
 
     public static class PlayerDataManager
     {
-        public static PlayerData playerData;
+        public static PlayerData PlayerData;
         public static List<BoardGenerator.Point> mapOrder;
+
+
+        #region Data Management
 
         /// <summary>
         /// Loads all the data from the files.
@@ -29,7 +39,7 @@ namespace Data_Management
         /// <returns></returns>
         public static void LoadData()
         {
-            playerData = FileHandler.ReadFromJson<PlayerData>("PlayerData.json");
+            PlayerData = FileHandler.ReadFromJson<PlayerData>("PlayerData.json");
             LoadMapOrder();
         }
         
@@ -39,8 +49,13 @@ namespace Data_Management
         /// <returns></returns>
         public static void SaveData()
         {
-            FileHandler.SaveToJson(playerData, "PlayerData.json");
+            FileHandler.SaveToJson(PlayerData, "PlayerData.json");
         }
+
+        #endregion
+
+
+        #region Inventory Management
 
         /// <summary>
         /// Get the amount of the item you wanted.
@@ -48,11 +63,11 @@ namespace Data_Management
         /// <returns></returns>
         public static int GetCertainItemAmount(ItemType itemType)
         {
-            if (playerData.itemList.Count <= 0) return 0;
+            if (PlayerData.ItemList.Count <= 0) return 0;
             
             int count = 0;
             
-            foreach (var item in playerData.itemList)
+            foreach (var item in PlayerData.ItemList)
             {
                 if (item.type == itemType)
                     count++;
@@ -67,27 +82,27 @@ namespace Data_Management
         /// <returns></returns>
         public static void Collect(int amount, Item item)
         {
-            playerData.itemList.Add(item);
+            PlayerData.ItemList.Add(item);
             SaveData();
         }
-        
+
         /// <summary>
         /// Sets the amount of apples collected.
         /// </summary>
         /// <returns></returns>
         public static void CollectApple(int amount)
         {
-            playerData.appleAmount++;
+            PlayerData.AppleAmount++;
             SaveData();
         }
-
+        
         /// <summary>
         /// Sets the amount of pears collected.
         /// </summary>
         /// <returns></returns>
         public static void CollectPear(int amount)
         {
-            playerData.pearAmount++;
+            PlayerData.PearAmount++;
             SaveData();
         }
         
@@ -97,10 +112,29 @@ namespace Data_Management
         /// <returns></returns>
         public static void CollectStrawberry(int amount)
         {
-            playerData.strawberryAmount++;
+            PlayerData.StrawberryAmount++;
             SaveData();
         }
         
+        #endregion
+
+        #region Dice Management
+
+        /// <summary>
+        /// Updates the amount of dices that gets thrown simultaneously.
+        /// </summary>
+        /// <returns></returns>
+        public static void UpdateDiceAmount(int amount)
+        {
+            PlayerData.DiceAmount = amount;
+            SaveData();
+        }
+
+        #endregion
+
+
+        #region Map Management
+
         /// <summary>
         /// Saves the new map.
         /// </summary>
@@ -111,7 +145,7 @@ namespace Data_Management
             //Debug.Log(mapOrder.Count);
             FileHandler.SaveListToJson(mapOrder, "MapOrder.json");
         }
-        
+
         /// <summary>
         /// Loads the new map.
         /// </summary>
@@ -121,5 +155,7 @@ namespace Data_Management
             mapOrder = FileHandler.ReadListFromJson<BoardGenerator.Point>("MapOrder.json");
             Debug.Log(mapOrder.Count);
         }
+        
+        #endregion
     }
 }
