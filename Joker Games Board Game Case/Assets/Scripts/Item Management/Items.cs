@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEditor;
 
 namespace Item_Management
 {
@@ -31,6 +32,7 @@ namespace Item_Management
         public string name;
         public ItemObject itemObject;
         public ItemType itemType;
+        public Sprite icon;
         public int itemAmount;
 
         public Item()
@@ -51,7 +53,7 @@ namespace Item_Management
     {
         public Apple()
         {
-            itemObject = Resources.Load<ItemObject>("ScriptableObjects/Items/Apple");
+            icon = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/2D/Item Icons/item_apple.png");
             name = "Apple";
             itemType = ItemType.Apple;
         }
@@ -67,7 +69,7 @@ namespace Item_Management
     {
         public Pear()
         {
-            itemObject = Resources.Load<ItemObject>("ScriptableObjects/Items/Pear");
+            icon = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/2D/Item Icons/item_pear.png");
             name = "Pear";
             itemType = ItemType.Pear;
         }
@@ -83,7 +85,7 @@ namespace Item_Management
     {
         public Strawberry()
         {
-            itemObject = Resources.Load<ItemObject>("ScriptableObjects/Items/Strawberry");
+            icon = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/2D/Item Icons/item_strawberry.png");
             name = "Strawberry";
             itemType = ItemType.Strawberry;
         }

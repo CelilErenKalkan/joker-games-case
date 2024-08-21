@@ -365,6 +365,7 @@
 "Assets/Scripts/Dice/Dice Launcher.cs"
 "Assets/Scripts/Game Management/Actions.cs"
 "Assets/Scripts/Game Management/GameManager.cs"
+"Assets/Scripts/Game Management/InventoryManager.cs"
 "Assets/Scripts/Game Management/PlayerManager.cs"
 "Assets/Scripts/Game Management/UIManager.cs"
 "Assets/Scripts/Item Management/ItemObject.cs"
