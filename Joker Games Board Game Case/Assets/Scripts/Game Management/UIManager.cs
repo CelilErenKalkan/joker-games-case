@@ -49,6 +49,8 @@ namespace Game_Management
 
         public void LoadGame(bool isNew)
         {
+            Actions.ButtonTapped?.Invoke();
+            
             // Switch between new and loaded game states
             menuGameObject.SetActive(false);
             panelMainGameObject.SetActive(false);
@@ -62,6 +64,8 @@ namespace Game_Management
 
         private void ChangeAudioMod()
         {
+            Actions.ButtonTapped?.Invoke();
+
             // Toggle audio mute state and update button sprite
             _playerData.isMuted = !_playerData.isMuted;
             _audioButtonImage.sprite = _playerData.isMuted ? _mute : _unmute;
@@ -70,6 +74,8 @@ namespace Game_Management
 
         private void ChangeVibrationMod()
         {
+            Actions.ButtonTapped?.Invoke();
+            
             // Toggle vibration state and update button sprite
             _playerData.isVibrationOff = !_playerData.isVibrationOff;
             _vibrationButtonImage.sprite = _playerData.isVibrationOff ? _vOn : _vOff;
@@ -78,6 +84,8 @@ namespace Game_Management
 
         private void ReturnToMainMenu()
         {
+            Actions.ButtonTapped?.Invoke();
+            
             // Save data and return to the main menu
             PlayerDataManager.SaveData();
             buttonReturnToMainMenu.gameObject.SetActive(false);
@@ -100,6 +108,8 @@ namespace Game_Management
         
         private void RollDice()
         {
+            Actions.ButtonTapped?.Invoke();
+            
             // Hide the dice roll button and trigger dice roll action
             buttonDiceRoll.gameObject.SetActive(false);
             Actions.RollDice?.Invoke(_playerData.diceAmount);

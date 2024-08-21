@@ -28,6 +28,8 @@ namespace Game_Management
 
         private void OpenInventory()
         {
+            Actions.ButtonTapped?.Invoke();
+
             SetInventoryList();
             
             showInventoryButton.SetActive(false);
@@ -36,6 +38,8 @@ namespace Game_Management
 
         private void CloseInventory()
         {
+            Actions.ButtonTapped?.Invoke();
+            
             SetInventoryList();
 
             inventoryObject.SetActive(false);
