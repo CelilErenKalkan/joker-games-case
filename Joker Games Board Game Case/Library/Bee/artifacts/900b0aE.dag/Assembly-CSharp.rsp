@@ -371,6 +371,7 @@
 "Assets/Scripts/Items/Item.cs"
 "Assets/Scripts/Pool.cs"
 "Assets/Scripts/PoolItemType.cs"
+"Assets/Scripts/Utils/SmoothCameraFollow.cs"
 "Assets/Scripts/Utils/Utilities.cs"
 -langversion:9.0
 /deterministic

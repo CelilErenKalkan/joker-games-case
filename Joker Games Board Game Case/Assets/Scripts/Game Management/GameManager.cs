@@ -1,7 +1,7 @@
-using System;
 using System.Collections.Generic;
 using Data_Management;
 using UnityEngine;
+using Utils;
 
 namespace Game_Management
 {
@@ -30,13 +30,15 @@ namespace Game_Management
         private void OnEnable()
         {
             Actions.DiceResult += ResultCalculator;
-            Actions.GameStart += GameStart;
+            Actions.GameStart += OnGameStart;
+            Actions.GameEnd += OnGameEnd;
         }
 
         private void OnDisable()
         {
             Actions.DiceResult -= ResultCalculator;
-            Actions.GameStart -= GameStart;
+            Actions.GameStart -= OnGameStart;
+            Actions.GameEnd -= OnGameEnd;
         }
         
         // Start is called before the first frame update
@@ -51,15 +53,20 @@ namespace Game_Management
         
         }
 
-        private void GameStart()
+        private void OnGameStart()
         {
-            Pool.Instance.SpawnObject(gameMap[PlayerDataManager.PlayerData.currentGrid].transform.position, PoolItemType.Player, null);
+            var player =Pool.Instance.SpawnObject(gameMap[PlayerDataManager.PlayerData.currentGrid].transform.position, PoolItemType.Player, null);
+            _player = player.GetComponent<PlayerManager>();
+            if (Camera.main != null) Camera.main.GetComponent<SmoothCameraFollow>().target = _player.transform;
             isPlayable = true;
         }
-
-        public void SetPlayer(PlayerManager player)
+        
+        private void OnGameEnd()
         {
-            _player = player;
+            Pool.Instance.DeactivateObject(_player.gameObject, PoolItemType.Player);
+            _player = null;
+            if (Camera.main != null) Camera.main.GetComponent<SmoothCameraFollow>().target = null;
+            isPlayable = false;
         }
 
         private void ResultCalculator(int diceResult)

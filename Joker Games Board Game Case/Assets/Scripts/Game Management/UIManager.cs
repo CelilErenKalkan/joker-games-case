@@ -47,6 +47,7 @@ namespace Game_Management
             buttonDiceRoll.SetActive(false);
             menuGameObject.SetActive(true);
             panelMainGameObject.SetActive(true);
+            Actions.GameEnd?.Invoke();
         }
         
         public void UpdateDiceAmount()

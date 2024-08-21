@@ -1,6 +1,5 @@
 using System.Collections;
 using Data_Management;
-using Items;
 using UnityEngine;
 using Utils;
 
@@ -12,17 +11,10 @@ namespace Game_Management
         private int _currentGrid;
 
         // Start is called before the first frame update
-        void Start()
+        private void OnEnable()
         {
             _gameManager = GameManager.Instance;
-            _gameManager.SetPlayer(this);
             _currentGrid = PlayerDataManager.PlayerData.currentGrid;
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
         }
 
         private void CollectItems()
@@ -39,8 +31,9 @@ namespace Game_Management
         {
             for (var i = 0; i < moveTimes; i++) 
             {
-                _currentGrid += 1; 
-                transform.position = _gameManager.gameMap[_currentGrid].position; 
+                _currentGrid += 1;
+                if (_currentGrid >= _gameManager.gameMap.Count) _currentGrid = 0;
+                transform.position = _gameManager.gameMap[_currentGrid].position;
                 0.1f.GetWait();
             }
 
