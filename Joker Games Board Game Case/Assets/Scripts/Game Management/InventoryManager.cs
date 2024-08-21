@@ -46,7 +46,6 @@ namespace Game_Management
         {
             for (var i = 0; i < slotsParent.childCount; i++)
             {
-                Debug.Log(_itemList.Count);
                 if (i < _itemList.Count)
                 {
                     slotImages[i].sprite = _itemList[i].icon;

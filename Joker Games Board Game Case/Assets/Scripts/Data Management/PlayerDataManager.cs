@@ -108,7 +108,7 @@ namespace Data_Management
                 if (item.itemType == itemType)
                 {
                     item.itemAmount += amount;
-                    break;
+                    return;
                 }
             }
             
