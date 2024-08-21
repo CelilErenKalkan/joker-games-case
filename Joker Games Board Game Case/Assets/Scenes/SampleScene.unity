@@ -820,6 +820,8 @@ MonoBehaviour:
   buttonDiceRoll: {fileID: 7264891375668764600}
   scrollBarDiceAmount: {fileID: 69854980}
   buttonReturnToMainMenu: {fileID: 2046733252}
+  buttonAudio: {fileID: 1031692624}
+  buttonVibration: {fileID: 1677043581}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,6 +930,9 @@ MonoBehaviour:
   target: {fileID: 0}
   smoothSpeed: 1
   offset: {x: 3, y: 10, z: -15}
+  rotationSpeed: 10
+  transitionSpeed: 2
+  maxRotationAngle: 360
 --- !u!1 &982883283
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,6 +1232,38 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4066382742511218647, guid: 0751c8b3fddacf74bad53199926c570a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 889488918}
+    - target: {fileID: 4066382742511218647, guid: 0751c8b3fddacf74bad53199926c570a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeAudioMod
+      objectReference: {fileID: 0}
+    - target: {fileID: 4066382742511218647, guid: 0751c8b3fddacf74bad53199926c570a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Game_Management.UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4066382742511218647, guid: 0751c8b3fddacf74bad53199926c570a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460430074733544385, guid: 0751c8b3fddacf74bad53199926c570a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 889488918}
+    - target: {fileID: 4460430074733544385, guid: 0751c8b3fddacf74bad53199926c570a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeVibrationMod
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460430074733544385, guid: 0751c8b3fddacf74bad53199926c570a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Game_Management.UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460430074733544385, guid: 0751c8b3fddacf74bad53199926c570a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5711193026392902074, guid: 0751c8b3fddacf74bad53199926c570a, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -1320,6 +1357,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1018813724}
   m_CullTransparentMesh: 1
+--- !u!1 &1031692624 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7036382175666553096, guid: 0751c8b3fddacf74bad53199926c570a, type: 3}
+  m_PrefabInstance: {fileID: 990320766}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1312268690
 GameObject:
   m_ObjectHideFlags: 0
@@ -1711,6 +1753,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1519663869}
   m_CullTransparentMesh: 1
+--- !u!1 &1677043581 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 233848225938741657, guid: 0751c8b3fddacf74bad53199926c570a, type: 3}
+  m_PrefabInstance: {fileID: 990320766}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1970326720
 GameObject:
   m_ObjectHideFlags: 0

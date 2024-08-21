@@ -40,18 +40,6 @@ namespace Game_Management
             Actions.GameStart -= OnGameStart;
             Actions.GameEnd -= OnGameEnd;
         }
-        
-        // Start is called before the first frame update
-        private void Start()
-        {
-            
-        }
-
-        // Update is called once per frame
-        private void Update()
-        {
-        
-        }
 
         private void OnGameStart()
         {
@@ -76,7 +64,7 @@ namespace Game_Management
 
             if (_diceCount >= PlayerDataManager.PlayerData.diceAmount)
             {
-                StartCoroutine(_player.MoveForward(PlayerDataManager.PlayerData.diceAmount));
+                StartCoroutine(_player.MoveForward(diceResult));
                 _diceCount = 0;
             }
         }

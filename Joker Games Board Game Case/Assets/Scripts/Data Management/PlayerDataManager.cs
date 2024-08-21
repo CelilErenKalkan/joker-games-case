@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Board;
-using Items;
+using Item_Management;
 using UnityEngine;
 
 namespace Data_Management
@@ -15,9 +15,6 @@ namespace Data_Management
         public int currentGrid;
         public int diceRoll;
         public int diceAmount;
-        public int appleAmount;
-        public int pearAmount;
-        public int strawberryAmount;
 
         public bool isMuted;
         public bool isVibrationOff;
@@ -30,37 +27,8 @@ namespace Data_Management
             currentGrid = 0;
             diceRoll = 0;
             diceAmount = 1;
-            appleAmount = 0;
-            pearAmount = 0;
-            strawberryAmount = 0;
             isMuted = false;
             isVibrationOff = false;
-
-            CalculateFruitAmounts();
-        }
-
-        // Method to calculate the fruit amounts based on the items in the list
-        private void CalculateFruitAmounts()
-        {
-            appleAmount = 0;
-            pearAmount = 0;
-            strawberryAmount = 0;
-
-            foreach (var item in itemList)
-            {
-                switch (item.type)
-                {
-                    case ItemType.Apple:
-                        appleAmount++;
-                        break;
-                    case ItemType.Pear:
-                        pearAmount++;
-                        break;
-                    case ItemType.Strawberry:
-                        strawberryAmount++;
-                        break;
-                }
-            }
         }
     }
 
@@ -116,62 +84,39 @@ namespace Data_Management
             int count = 0;
             foreach (var item in PlayerData.itemList)
             {
-                if (item.type == itemType)
+                if (item.itemType == itemType)
                     count++;
             }
 
             return count;
         }
 
-        public static void Collect(int amount, Item item)
+        public static void Collect()
         {
+            var amount = MapOrder[PlayerData.currentGrid].itemAmount;
+            var itemType = MapOrder[PlayerData.currentGrid].itemType;
             if (amount <= 0)
             {
                 Debug.LogWarning("Amount to collect must be greater than zero.");
                 return;
             }
+            
+            PlayerData.itemList ??= new List<Item>();
 
-            if (PlayerData.itemList == null) PlayerData.itemList = new List<Item>();
-            PlayerData.itemList.Add(item);
-            SaveData();
-        }
-
-        public static void CollectApple(int amount)
-        {
-            if (amount <= 0)
+            foreach (var item in PlayerData.itemList)
             {
-                Debug.LogWarning("Amount to collect must be greater than zero.");
-                return;
+                if (item.itemType == itemType)
+                {
+                    item.itemAmount += amount;
+                    break;
+                }
             }
-
-            PlayerData.appleAmount += amount;
-            SaveData();
+            
+            var newItem = ItemFactory.CreateItem(itemType);
+            PlayerData.itemList.Add(newItem);
+            newItem.itemAmount++;
         }
-
-        public static void CollectPear(int amount)
-        {
-            if (amount <= 0)
-            {
-                Debug.LogWarning("Amount to collect must be greater than zero.");
-                return;
-            }
-
-            PlayerData.pearAmount += amount;
-            SaveData();
-        }
-
-        public static void CollectStrawberry(int amount)
-        {
-            if (amount <= 0)
-            {
-                Debug.LogWarning("Amount to collect must be greater than zero.");
-                return;
-            }
-
-            PlayerData.strawberryAmount += amount;
-            SaveData();
-        }
-
+        
         #endregion
 
         #region Dice Management

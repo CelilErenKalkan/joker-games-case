@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Data_Management;
 using Game_Management;
-using Items;
+using Item_Management;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

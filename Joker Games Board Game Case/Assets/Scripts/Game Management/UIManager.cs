@@ -1,24 +1,30 @@
 using System.Collections.Generic;
 using Data_Management;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game_Management
 {
     public class UIManager : MonoBehaviour
     {
         // Public static property to access the instance
-        public static UIManager Instance { get; private set; }
-        public GameObject panelMainGameObject, menuGameObject, buttonDiceRoll, scrollBarDiceAmount, buttonReturnToMainMenu;
-        private List<TMP_Text> diceAmounts = new List<TMP_Text>();
+        //public static UIManager Instance { get; private set; }
+        public GameObject panelMainGameObject, menuGameObject, buttonDiceRoll, scrollBarDiceAmount, buttonReturnToMainMenu, buttonAudio, buttonVibration;
+        private List<TMP_Text> _diceAmounts = new List<TMP_Text>();
 
+        private PlayerData _playerData;
+
+        private Sprite _mute, _unmute, _vOff, _vOn;
+        
 
         // Ensure that the instance is unique and handle duplication
-        private void Awake()
+        /*private void Awake()
         {
             if (Instance != null && Instance != this) Destroy(this);
             else Instance = this;
-        }
+        }*/
         
         private void OnEnable()
         {
@@ -40,6 +46,26 @@ namespace Game_Management
             else Actions.LoadGame?.Invoke();
         }
 
+        #region Top Right Corner
+
+        public void ChangeAudioMod()
+        {
+            _playerData.isMuted = !_playerData.isMuted;
+            
+            buttonAudio.GetComponent<Image>().sprite = _playerData.isMuted ? _mute : _unmute;
+            
+            Actions.AudioChanged?.Invoke(_playerData.isMuted);
+        }
+        
+        public void ChangeVibrationMod()
+        {
+            _playerData.isVibrationOff = !_playerData.isVibrationOff;
+            
+            buttonVibration.GetComponent<Image>().sprite = _playerData.isVibrationOff ? _vOn : _vOff;
+            
+            Actions.VibrationChanged?.Invoke(_playerData.isMuted);
+        }
+
         public void ReturnToMainMenu()
         {
             PlayerDataManager.SaveData();
@@ -49,7 +75,9 @@ namespace Game_Management
             panelMainGameObject.SetActive(true);
             Actions.GameEnd?.Invoke();
         }
-        
+
+        #endregion
+
         public void UpdateDiceAmount()
         {
             int amount = transform.GetSiblingIndex() + 1;
@@ -59,7 +87,7 @@ namespace Game_Management
         public void RollDice()
         {
             buttonDiceRoll.SetActive(false);
-            var diceAmount = PlayerDataManager.PlayerData.diceAmount;
+            var diceAmount = _playerData.diceAmount;
             Actions.RollDice?.Invoke(diceAmount);
         }
 
@@ -71,6 +99,12 @@ namespace Game_Management
         // Start is called before the first frame update
         private void Start()
         {
+            _playerData = PlayerDataManager.PlayerData;
+            _mute = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/2D/UI/ui_icon_main_menu_mute.png");
+            _unmute = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/2D/UI/ui_icon_main_menu_unmute.png");
+            _vOff = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/2D/UI/ui_icon_main_menu_vibration_off.png");
+            _vOn = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/2D/UI/ui_icon_main_menu_vibration_on.png");
+            
             if (PlayerDataManager.MapOrder.Count <= 0)
             {
                 menuGameObject.transform.GetChild(0).gameObject.SetActive(false);

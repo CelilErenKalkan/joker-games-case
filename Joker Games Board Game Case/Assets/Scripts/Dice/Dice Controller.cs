@@ -98,9 +98,6 @@ namespace Dice
         // Throws the dice with a random rotation and calculated parabolic movement
         private void Throw()
         {
-            _rigidbody.isKinematic = false;
-            _rigidbody.useGravity = true;
-
             float dirX = Random.Range(500, 1000); // random x
             float dirY = Random.Range(500, 1000); // random y
             float dirZ = Random.Range(500, 1000); // random z
@@ -117,9 +114,6 @@ namespace Dice
             if (_gameManager.isPlayable)
                 DetectResult();
             
-            _rigidbody.isKinematic = true;
-            _rigidbody.useGravity = false;
-            _boxCollider.enabled = true;
             transform.localPosition = initPosition;
             transform.localRotation = initRotation;
             SetRandomFaceOnPlatform();

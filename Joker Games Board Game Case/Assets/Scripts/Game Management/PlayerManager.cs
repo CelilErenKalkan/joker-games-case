@@ -19,7 +19,7 @@ namespace Game_Management
 
         private void CollectItems()
         {
-            
+            PlayerDataManager.Collect();
         }
         
         private void SetCurrentGrid()
@@ -34,11 +34,12 @@ namespace Game_Management
                 _currentGrid += 1;
                 if (_currentGrid >= _gameManager.gameMap.Count) _currentGrid = 0;
                 transform.position = _gameManager.gameMap[_currentGrid].position;
-                0.1f.GetWait();
+                Debug.Log("Entered");
+                0.5f.GetWait();
             }
 
-            CollectItems();
             SetCurrentGrid();
+            CollectItems();
             PlayerDataManager.SaveData();
             Actions.NextTurn?.Invoke();
             yield return null;
