@@ -79,7 +79,6 @@ namespace Dice
                 }
             }
             
-            Debug.Log(result);
             Actions.DiceResult?.Invoke(result);
             
         }

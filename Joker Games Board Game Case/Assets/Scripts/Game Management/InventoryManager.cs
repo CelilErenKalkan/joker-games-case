@@ -48,7 +48,6 @@ namespace Game_Management
             {
                 if (i < _itemList.Count)
                 {
-                    Debug.Log(_itemList[i].GetIcon);
                     slotImages[i].sprite = _itemList[i].GetIcon;
                     slotImages[i].enabled = true;
                     itemAmountList[i].text = "x" + _itemList[i].itemAmount;

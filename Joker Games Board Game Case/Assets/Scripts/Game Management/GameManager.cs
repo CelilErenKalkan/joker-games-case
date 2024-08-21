@@ -13,7 +13,7 @@ namespace Game_Management
         public bool isPlayable;
 
         private int _totalResult, _diceCount;
-        private PlayerManager _player;
+        [SerializeField] private PlayerManager _player;
         public List<Transform> gameMap;
 
         // Ensure that the instance is unique and handle duplication
