@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-using UnityEditor;
 
 namespace Item_Management
 {
@@ -29,19 +28,18 @@ namespace Item_Management
     [Serializable]
     public class Item
     {
-        public string name;
         public ItemObject itemObject;
-        public ItemType itemType;
-        public Sprite icon;
         public int itemAmount;
 
         public Item()
         {
-            itemObject = Resources.Load<ItemObject>("ScriptableObjects/Items/Empty");
-            name = "Empty";
-            itemType = ItemType.Empty;
+            itemObject = Resources.Load<ItemObject>("Items/Empty");
         }
-    
+
+        public string GetName() => itemObject.name;
+        public ItemType GetItemType => itemObject.itemType;
+        public Sprite GetIcon => itemObject.icon;
+
         public virtual void Collect()
         {
         
@@ -53,14 +51,12 @@ namespace Item_Management
     {
         public Apple()
         {
-            icon = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/2D/Item Icons/item_apple.png");
-            name = "Apple";
-            itemType = ItemType.Apple;
+            itemObject = Resources.Load<ItemObject>("Items/Apple");
         }
-    
+
         public override void Collect()
         {
-        
+            
         }
     }
     
@@ -69,11 +65,9 @@ namespace Item_Management
     {
         public Pear()
         {
-            icon = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/2D/Item Icons/item_pear.png");
-            name = "Pear";
-            itemType = ItemType.Pear;
+            itemObject = Resources.Load<ItemObject>("Items/Pear");
         }
-    
+
         public override void Collect()
         {
         
@@ -85,11 +79,9 @@ namespace Item_Management
     {
         public Strawberry()
         {
-            icon = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/2D/Item Icons/item_strawberry.png");
-            name = "Strawberry";
-            itemType = ItemType.Strawberry;
+            itemObject = Resources.Load<ItemObject>("Items/Strawberry");
         }
-    
+
         public override void Collect()
         {
         

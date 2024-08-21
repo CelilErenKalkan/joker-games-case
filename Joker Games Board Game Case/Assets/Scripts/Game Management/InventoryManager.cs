@@ -15,7 +15,7 @@ namespace Game_Management
         private readonly List<TMP_Text> itemAmountList = new List<TMP_Text>();
 
         [SerializeField] private Button openInventory, closeInventory;
-        private List<Item> _itemList;
+        [SerializeField] private List<Item> _itemList;
 
         // Start is called before the first frame update
         private void Start()
@@ -48,7 +48,8 @@ namespace Game_Management
             {
                 if (i < _itemList.Count)
                 {
-                    slotImages[i].sprite = _itemList[i].icon;
+                    Debug.Log(_itemList[i].GetIcon);
+                    slotImages[i].sprite = _itemList[i].GetIcon;
                     slotImages[i].enabled = true;
                     itemAmountList[i].text = "x" + _itemList[i].itemAmount;
                 }

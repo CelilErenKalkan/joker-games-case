@@ -13,7 +13,6 @@ namespace Data_Management
         public string playerName;
         public List<Item> itemList;
         public int currentGrid;
-        public int diceRoll;
         public int diceAmount;
 
         public bool isMuted;
@@ -25,7 +24,6 @@ namespace Data_Management
             playerName = "Player";
             this.itemList = itemList ?? new List<Item>();
             currentGrid = 0;
-            diceRoll = 0;
             diceAmount = 1;
             isMuted = false;
             isVibrationOff = false;
@@ -84,7 +82,7 @@ namespace Data_Management
             int count = 0;
             foreach (var item in PlayerData.itemList)
             {
-                if (item.itemType == itemType)
+                if (item.GetItemType == itemType)
                     count++;
             }
 
@@ -105,7 +103,7 @@ namespace Data_Management
 
             foreach (var item in PlayerData.itemList)
             {
-                if (item.itemType == itemType)
+                if (item.GetItemType == itemType)
                 {
                     item.itemAmount += amount;
                     return;
@@ -114,7 +112,7 @@ namespace Data_Management
             
             var newItem = ItemFactory.CreateItem(itemType);
             PlayerData.itemList.Add(newItem);
-            newItem.itemAmount++;
+            newItem.itemAmount = 1;
         }
         
         #endregion

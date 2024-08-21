@@ -6,6 +6,7 @@ namespace Item_Management
 
     public class ItemObject : ScriptableObject
     {
+        public ItemType itemType;
         public Sprite icon;
     }
 }
