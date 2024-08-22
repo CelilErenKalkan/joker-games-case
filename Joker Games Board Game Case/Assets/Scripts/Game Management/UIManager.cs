@@ -69,6 +69,7 @@ namespace Game_Management
             // Toggle audio mute state and update button sprite
             _playerData.isMuted = !_playerData.isMuted;
             _audioButtonImage.sprite = _playerData.isMuted ? _mute : _unmute;
+            PlayerDataManager.SaveData();
             Actions.AudioChanged?.Invoke(_playerData.isMuted);
         }
 
@@ -79,6 +80,7 @@ namespace Game_Management
             // Toggle vibration state and update button sprite
             _playerData.isVibrationOff = !_playerData.isVibrationOff;
             _vibrationButtonImage.sprite = _playerData.isVibrationOff ? _vOn : _vOff;
+            PlayerDataManager.SaveData();
             Actions.VibrationChanged?.Invoke(_playerData.isVibrationOff);
         }
 
@@ -108,10 +110,11 @@ namespace Game_Management
         
         private void RollDice()
         {
-            Actions.ButtonTapped?.Invoke();
-            
             // Hide the dice roll button and trigger dice roll action
             buttonDiceRoll.gameObject.SetActive(false);
+            
+            Debug.Log("Launch");
+            Actions.ButtonTapped?.Invoke();
             Actions.RollDice?.Invoke(_playerData.diceAmount);
         }
 
@@ -144,12 +147,13 @@ namespace Game_Management
 
             _audioButtonImage.sprite = _playerData.isMuted ? _mute : _unmute;
             _vibrationButtonImage.sprite = _playerData.isVibrationOff ? _vOff : _vOn;
+            
+            Actions.AudioChanged?.Invoke(_playerData.isMuted);
+            Actions.VibrationChanged?.Invoke(_playerData.isVibrationOff);
         }
 
         private void SetButtons()
         {
-
-
             buttonLoadGame.onClick.AddListener(() => LoadGame(false));
             buttonNewGame.onClick.AddListener(() => LoadGame(true));
             buttonDiceRoll.onClick.AddListener(RollDice);
