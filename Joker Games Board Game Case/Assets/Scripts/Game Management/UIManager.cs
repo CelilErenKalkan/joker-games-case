@@ -62,11 +62,7 @@ namespace Game_Management
 
         private void GameStartAnimation(bool isStarting)
         {
-            //menuGameObject.SetActive(false);
             panelMainGameObject.SetActive(!isStarting);
-            //buttonDiceRoll.gameObject.SetActive(true);
-            //buttonReturnToMainMenu.gameObject.SetActive(true);
-            
             _animator.SetTrigger(isStarting ? "StartGame" : "EndGame");
         }
 
@@ -109,10 +105,6 @@ namespace Game_Management
             
             // Save data and return to the main menu
             PlayerDataManager.SaveData();
-            //buttonReturnToMainMenu.gameObject.SetActive(false);
-            //buttonDiceRoll.gameObject.SetActive(false);
-            //menuGameObject.SetActive(true);
-            //panelMainGameObject.SetActive(true);
             GameStartAnimation(false);
             DiceButtonAnimation(false);
             Actions.GameEnd?.Invoke();

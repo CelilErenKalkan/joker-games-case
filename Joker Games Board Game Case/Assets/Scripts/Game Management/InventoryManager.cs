@@ -31,9 +31,6 @@ namespace Game_Management
             Actions.ButtonTapped?.Invoke();
 
             SetInventoryList();
-            
-            //showInventoryButton.SetActive(false);
-            //inventoryObject.SetActive(true);
         }
 
         private void CloseBag()
@@ -41,9 +38,6 @@ namespace Game_Management
             Actions.ButtonTapped?.Invoke();
             
             SetInventoryList();
-
-            //inventoryObject.SetActive(false);
-            //showInventoryButton.SetActive(true);
         }
 
         private void SetInventoryList()
