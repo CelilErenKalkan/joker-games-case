@@ -61,14 +61,21 @@ namespace Board
         
         private void LoadMap()
         {
-            _mapOrder = PlayerDataManager.MapOrder;
-            
-            if (_mapOrder is not { Count: > 0 })
+            if (_mapOrder.Count > 0)
             {
-                GenerateBoard(); // Trigger the board generation process when the game starts   
+                Actions.GameStart?.Invoke();
             }
+            else
+            {
+                _mapOrder = PlayerDataManager.MapOrder;
             
-            StartCoroutine(GenerateGridObjects());
+                if (_mapOrder is not { Count: > 0 })
+                {
+                    GenerateBoard(); // Trigger the board generation process when the game starts   
+                }
+            
+                StartCoroutine(GenerateGridObjects());
+            }
         }
 
         // Method to find a path from the starting point to the target point
