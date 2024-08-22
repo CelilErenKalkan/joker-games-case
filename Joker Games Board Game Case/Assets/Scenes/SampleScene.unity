@@ -4205,17 +4205,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 33913283235748891, guid: 1ab6ed76564bf0f4b8e97223a9351073, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1379154302658259240, guid: 1ab6ed76564bf0f4b8e97223a9351073, type: 3}
       propertyPath: m_Name
       value: Dice_Area
-      objectReference: {fileID: 0}
-    - target: {fileID: 2609345929456733373, guid: 1ab6ed76564bf0f4b8e97223a9351073, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5187549933266344590, guid: 1ab6ed76564bf0f4b8e97223a9351073, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4256,14 +4248,6 @@ PrefabInstance:
     - target: {fileID: 5187549933266344590, guid: 1ab6ed76564bf0f4b8e97223a9351073, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7795854217799855714, guid: 1ab6ed76564bf0f4b8e97223a9351073, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7851641213876847454, guid: 1ab6ed76564bf0f4b8e97223a9351073, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

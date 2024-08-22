@@ -61,7 +61,6 @@ namespace Game_Management
         {
             _totalResult += diceResult;
             _diceCount++;
-            Debug.Log(PlayerDataManager.PlayerData.diceAmount);
 
             if (_diceCount >= PlayerDataManager.PlayerData.diceAmount)
             {

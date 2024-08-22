@@ -27,7 +27,7 @@ namespace Dice
         {
             Vector3 defaultPos = transform.position;
             float x = Random.Range(defaultPos.x - 3, defaultPos.x + 3);
-            return new Vector3(x, defaultPos.y, defaultPos.z + 1);
+            return new Vector3(x, defaultPos.y, defaultPos.z);
         }
 
         private void LaunchDice(int amount)

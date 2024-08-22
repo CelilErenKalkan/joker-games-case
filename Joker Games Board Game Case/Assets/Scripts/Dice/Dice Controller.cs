@@ -97,13 +97,13 @@ namespace Dice
         // Throws the dice with a random rotation and calculated parabolic movement
         private void Throw()
         {
-            float dirX = Random.Range(500, 1000); // random x
-            float dirY = Random.Range(500, 1000); // random y
-            float dirZ = Random.Range(500, 1000); // random z
+            float dirX = Random.Range(-1000, 1000); // random x
+            float dirY = Random.Range(-1000, 1000); // random y
+            float dirZ = Random.Range(-1000, 1000); // random z
 
             _rigidbody.AddRelativeTorque(dirX, dirY, dirZ);
-            _rigidbody.AddForce(Vector3.up * Random.Range(-800, -500));
-            _rigidbody.AddForce(Vector3.forward * Random.Range(500, 800));
+            _rigidbody.AddForce(Vector3.up * Random.Range(-120, -80), ForceMode.Impulse);
+            _rigidbody.AddForce(Vector3.forward * Random.Range(50, 30), ForceMode.Impulse);
         }
         
         // Resets dice variables before relaunch

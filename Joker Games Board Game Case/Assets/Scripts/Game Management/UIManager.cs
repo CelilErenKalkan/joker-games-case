@@ -86,7 +86,6 @@ namespace Game_Management
 
             // Toggle audio mute state and update button sprite
             PlayerDataManager.PlayerData.isMuted = !PlayerDataManager.PlayerData.isMuted;
-            Debug.Log(PlayerDataManager.PlayerData.isMuted);
             SetAudioOrVibration(true);
         }
 
