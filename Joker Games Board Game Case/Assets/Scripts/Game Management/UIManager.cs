@@ -14,7 +14,6 @@ namespace Game_Management
         // Private variables for UI elements and data
         private Image _audioButtonImage;
         private Image _vibrationButtonImage;
-        private PlayerData _playerData;
 
         private Sprite _mute, _unmute, _vOff, _vOn;
 
@@ -32,9 +31,6 @@ namespace Game_Management
 
         private void Start()
         {
-            // Initialize PlayerData
-            _playerData = PlayerDataManager.PlayerData;
-
             // Set up sprites, button listeners, and dice amount texts
             SetSprites();
             SetButtons();
@@ -67,10 +63,9 @@ namespace Game_Management
             Actions.ButtonTapped?.Invoke();
 
             // Toggle audio mute state and update button sprite
-            _playerData.isMuted = !_playerData.isMuted;
-            _audioButtonImage.sprite = _playerData.isMuted ? _mute : _unmute;
-            PlayerDataManager.SaveData();
-            Actions.AudioChanged?.Invoke(_playerData.isMuted);
+            PlayerDataManager.PlayerData.isMuted = !PlayerDataManager.PlayerData.isMuted;
+            Debug.Log(PlayerDataManager.PlayerData.isMuted);
+            SetAudioOrVibration(true);
         }
 
         private void ChangeVibrationMod()
@@ -78,10 +73,8 @@ namespace Game_Management
             Actions.ButtonTapped?.Invoke();
             
             // Toggle vibration state and update button sprite
-            _playerData.isVibrationOff = !_playerData.isVibrationOff;
-            _vibrationButtonImage.sprite = _playerData.isVibrationOff ? _vOn : _vOff;
-            PlayerDataManager.SaveData();
-            Actions.VibrationChanged?.Invoke(_playerData.isVibrationOff);
+            PlayerDataManager.PlayerData.isVibrationOff = !PlayerDataManager.PlayerData.isVibrationOff;
+            SetAudioOrVibration(false);
         }
 
         private void ReturnToMainMenu()
@@ -113,9 +106,8 @@ namespace Game_Management
             // Hide the dice roll button and trigger dice roll action
             buttonDiceRoll.gameObject.SetActive(false);
             
-            Debug.Log("Launch");
             Actions.ButtonTapped?.Invoke();
-            Actions.RollDice?.Invoke(_playerData.diceAmount);
+            Actions.RollDice?.Invoke(PlayerDataManager.PlayerData.diceAmount);
         }
 
         private void NextTurn()
@@ -128,6 +120,23 @@ namespace Game_Management
 
         #region Setting Variables
 
+        private void SetAudioOrVibration(bool isAudio)
+        {
+            switch (isAudio)
+            {
+                case true:
+                    _audioButtonImage.sprite = PlayerDataManager.PlayerData.isMuted ? _mute : _unmute;
+                    Actions.AudioChanged?.Invoke(PlayerDataManager.PlayerData.isMuted);
+                    break;
+                case false:
+                    _vibrationButtonImage.sprite = PlayerDataManager.PlayerData.isVibrationOff ? _vOff : _vOn;
+                    Actions.VibrationChanged?.Invoke(PlayerDataManager.PlayerData.isVibrationOff);
+                    break;
+            }
+            
+            PlayerDataManager.SaveData();
+        }
+        
         private void SetSprites()
         {
             // Load sprite assets from Resources
@@ -145,11 +154,8 @@ namespace Game_Management
             _audioButtonImage = buttonAudio.GetComponent<Image>();
             _vibrationButtonImage = buttonVibration.GetComponent<Image>();
 
-            _audioButtonImage.sprite = _playerData.isMuted ? _mute : _unmute;
-            _vibrationButtonImage.sprite = _playerData.isVibrationOff ? _vOff : _vOn;
-            
-            Actions.AudioChanged?.Invoke(_playerData.isMuted);
-            Actions.VibrationChanged?.Invoke(_playerData.isVibrationOff);
+            SetAudioOrVibration(true);
+            SetAudioOrVibration(false);
         }
 
         private void SetButtons()
