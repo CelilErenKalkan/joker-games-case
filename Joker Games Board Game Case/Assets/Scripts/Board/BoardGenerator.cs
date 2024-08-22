@@ -212,7 +212,7 @@ namespace Board
                 var gridObject = Pool.Instance.SpawnObject(GetRealWorldPositionOfTheGrid(2, point), PoolItemType.Grid, null);
                 if (gridObject.TryGetComponent(out Grid grid))
                 {
-                    grid.SetGrid(point.itemType, point.itemAmount);
+                    grid.SetGrid(point.itemType, point.itemAmount, _mapOrder.IndexOf(point));
                 }
 
                 yield return 0.1f.GetWait();
