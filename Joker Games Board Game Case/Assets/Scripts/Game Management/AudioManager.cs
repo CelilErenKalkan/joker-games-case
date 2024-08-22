@@ -1,44 +1,35 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using Data_Management;
 using UnityEngine;
 
 namespace Game_Management
 {
-    [RequireComponent(typeof(AudioSource))]
     public class AudioManager : MonoBehaviour
     {
-        public AudioSource audioSource;
+        private Pool _pool;
         public List<AudioClip> soundList;
-
-        public void PlayOneShot(int index, float volumeScale = 1)
-        {
-            audioSource.PlayOneShot(soundList[index], volumeScale);
-        }
 
         private void OnEnable()
         {
-            Actions.AudioChanged += SetAudioMod;
             Actions.ButtonTapped += OnButtonTapped;
             Actions.GameStart += OnGameStart;
             Actions.NextTurn += OnNextTurn;
-            
-            SetAudioMod(PlayerDataManager.PlayerData.isMuted);
+            Actions.GridAppeared += OnGridAppeared;
         }
         
         private void OnDisable()
         {
-            Actions.AudioChanged -= SetAudioMod;
             Actions.ButtonTapped -= OnButtonTapped;
             Actions.GameStart -= OnGameStart;
             Actions.NextTurn -= OnNextTurn;
+            Actions.GridAppeared -= OnGridAppeared;
         }
 
-        private void SetAudioMod(bool isMuted)
+        private void Start()
         {
-            audioSource.volume = isMuted? 0 : 1;
+            _pool = Pool.Instance;
         }
-        
+
         private void OnButtonTapped()
         {
             PlaySound(0);
@@ -53,27 +44,22 @@ namespace Game_Management
         {
             PlaySound(2);
         }
-
-        public void PlaySound(int index)
+        
+        private void OnGridAppeared()
         {
-            audioSource.clip = soundList[index];
-            audioSource.Play();
+            PlaySound(3);
+            //PlaySound(4);
         }
 
-        public IEnumerator PlaySoundWithTime(float time, int index)
+        private void PlaySound(int index)
         {
-            yield return new WaitForSeconds(time);
-            audioSource.clip = soundList[index];
-            audioSource.Play();
-        }
-
-        public IEnumerator PlayTwoSound(int firstSound, int secondSound)
-        {
-            audioSource.clip = soundList[firstSound];
-            audioSource.Play();
-            yield return new WaitForSeconds(audioSource.clip.length);
-            audioSource.clip = soundList[secondSound];
-            audioSource.Play();
+            float time = soundList[index].length + 0.1f;
+            var audioObject = Pool.Instance.SpawnObject(transform.position, PoolItemType.AudioSource, null, time);
+            if (audioObject.TryGetComponent(out AudioSource audioSource))
+            {
+                audioSource.clip = soundList[index];
+                audioSource.Play();
+            }
         }
     }
     

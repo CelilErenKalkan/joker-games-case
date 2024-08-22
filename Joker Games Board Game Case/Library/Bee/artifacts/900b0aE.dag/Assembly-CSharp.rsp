@@ -359,6 +359,7 @@
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2022.3.42f1-x86_64/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2022.3.42f1-x86_64/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/Scripts/Board/BoardGenerator.cs"
+"Assets/Scripts/Board/Grid.cs"
 "Assets/Scripts/Data Management/FileHandler.cs"
 "Assets/Scripts/Data Management/PlayerDataManager.cs"
 "Assets/Scripts/Dice/Dice Controller.cs"

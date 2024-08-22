@@ -1,9 +1,11 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Data_Management;
 using Game_Management;
 using Item_Management;
 using UnityEngine;
+using Utils;
 using Random = UnityEngine.Random;
 
 namespace Board
@@ -54,7 +56,7 @@ namespace Board
         {
             _mapOrder = new List<Point>();
             GenerateBoard(); // Trigger the board generation process when the game starts   
-            GenerateGridObjects();
+            StartCoroutine(GenerateGridObjects());
         }
         
         private void LoadMap()
@@ -66,7 +68,7 @@ namespace Board
                 GenerateBoard(); // Trigger the board generation process when the game starts   
             }
             
-            GenerateGridObjects();
+            StartCoroutine(GenerateGridObjects());
         }
 
         // Method to find a path from the starting point to the target point
@@ -188,7 +190,7 @@ namespace Board
         }
 
         // Method to generate and place objects on the grid based on the generated path
-        private void GenerateGridObjects()
+        private IEnumerator GenerateGridObjects()
         {
             foreach (var point in _mapOrder)
             {
@@ -196,10 +198,16 @@ namespace Board
                 //Debug.Log($"Point: ({point.x}, {point.y}), ItemType: {point.itemType}, ItemAmount: {point.itemAmount}");
                 
                 // Spawn a grid object at the real-world position corresponding to the point
-                var grid = Pool.Instance.SpawnObject(GetRealWorldPositionOfTheGrid(2, point), PoolItemType.Grid, null);
-                GameManager.Instance.gameMap.Add(grid.transform);
+                var gridObject = Pool.Instance.SpawnObject(GetRealWorldPositionOfTheGrid(2, point), PoolItemType.Grid, null);
+                if (gridObject.TryGetComponent(out Grid grid))
+                {
+                    grid.SetGrid(point.itemType, point.itemAmount);
+                }
+
+                yield return 0.1f.GetWait();
             }
-            
+
+            yield return 1.0f.GetWait();
             Actions.GameStart?.Invoke();
         }
 

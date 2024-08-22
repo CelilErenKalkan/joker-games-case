@@ -58,13 +58,13 @@ namespace Dice
             }
             else if ( Vector3.Cross(Vector3.up, transform.up).magnitude < 0.5f) //y axis
             {
-                if (Vector3.Dot(Vector3.up, transform.up) > 0) // 4th Face
-                {
-                    result = 4;
-                }
-                else // 3rd Face
+                if (Vector3.Dot(Vector3.up, transform.up) > 0) // 3rd Face
                 {
                     result = 3;
+                }
+                else // 4th Face
+                {
+                    result = 4;
                 }
             }
             else if ( Vector3.Cross(Vector3.up, transform.forward).magnitude < 0.5f) //z axis

@@ -6,9 +6,9 @@ namespace Utils
 {
     public class SmoothCameraFollow : MonoBehaviour
     {
+        public Vector3 offset;
         [HideInInspector] public Transform target;
         [HideInInspector] public float smoothSpeed = 0.01f;
-        [HideInInspector] public Vector3 offset;
         [HideInInspector] public float rotationSpeed = 10f; // Speed of rotation around the grids
         [HideInInspector] public float transitionSpeed = 2f; // Speed of transition when a target appears
         [HideInInspector] public float maxRotationAngle = 360f; // Maximum rotation around grids
