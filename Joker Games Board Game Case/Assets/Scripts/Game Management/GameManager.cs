@@ -64,7 +64,7 @@ namespace Game_Management
 
             if (_diceCount >= PlayerDataManager.PlayerData.diceAmount)
             {
-                StartCoroutine(_player.MoveForward(diceResult));
+                _player.MoveForward(diceResult);
                 _diceCount = 0;
             }
         }

@@ -15,6 +15,7 @@ namespace Game_Management
         public static Action<int> RollDice;
         public static Action<int> DiceResult;
         public static Action GridAppeared;
+        public static Action GridHasFallen;
         public static Action ItemAmountChanged;
     }
 }

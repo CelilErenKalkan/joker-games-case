@@ -15,6 +15,7 @@ namespace Game_Management
             Actions.GameStart += OnGameStart;
             Actions.NextTurn += OnNextTurn;
             Actions.GridAppeared += OnGridAppeared;
+            Actions.GridHasFallen += OnGridHasFallen;
         }
         
         private void OnDisable()
@@ -23,6 +24,7 @@ namespace Game_Management
             Actions.GameStart -= OnGameStart;
             Actions.NextTurn -= OnNextTurn;
             Actions.GridAppeared -= OnGridAppeared;
+            Actions.GridHasFallen -= OnGridHasFallen;
         }
 
         private void Start()
@@ -48,7 +50,11 @@ namespace Game_Management
         private void OnGridAppeared()
         {
             PlaySound(3);
-            //PlaySound(4);
+        }
+        
+        private void OnGridHasFallen()
+        {
+            PlaySound(4);
         }
 
         private void PlaySound(int index)

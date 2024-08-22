@@ -28,5 +28,10 @@ namespace Board
             _prizeAmountText.text = "x" + amount;
             GameManager.Instance.gameMap.Add(transform);
         }
+
+        public void GridHasFallen()
+        {
+            Actions.GridHasFallen?.Invoke();
+        }
     }
 }
