@@ -33,7 +33,7 @@ namespace Board
         }
 
         [SerializeField] [Range(10, 100)] private int boardSize; // Size of the grid (NxN)
-        private List<Point> _mapOrder; // List to store the generated path of Points
+        [SerializeField]private List<Point> _mapOrder; // List to store the generated path of Points
 
         private void OnEnable()
         {
@@ -77,6 +77,10 @@ namespace Board
             int maxIterations = boardSize * boardSize * 2; // Safeguard limit to prevent infinite loops
             int iterations = 0;
 
+            // Assign a random itemType and itemAmount to the currentPoint
+            current.itemType = (ItemType)Random.Range(0, Enum.GetValues(typeof(ItemType)).Length);
+            current.itemAmount = Random.Range(0, 16); // Random amount between 0 and 15 inclusive
+            
             // Continue pathfinding until reaching the target or exceeding maxIterations
             while ((current.x != target.x || current.y != target.y) && iterations < maxIterations)
             {

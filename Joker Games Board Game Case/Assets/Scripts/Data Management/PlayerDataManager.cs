@@ -24,7 +24,7 @@ namespace Data_Management
             playerName = "Player";
             this.itemList = itemList ?? new List<Item>();
             currentGrid = 0;
-            diceAmount = 1;
+            diceAmount = 2;
             isMuted = false;
             isVibrationOff = false;
         }
@@ -45,7 +45,7 @@ namespace Data_Management
             try
             {
                 PlayerData = FileHandler.ReadFromJson<PlayerData>("PlayerData.json");
-                if (PlayerData.diceAmount <= 0) PlayerData.diceAmount = 1;
+                if (PlayerData.diceAmount <= 0) PlayerData.diceAmount = 2;
                 SaveData();
             }
             catch (Exception ex)

@@ -61,11 +61,13 @@ namespace Game_Management
         {
             _totalResult += diceResult;
             _diceCount++;
+            Debug.Log(PlayerDataManager.PlayerData.diceAmount);
 
             if (_diceCount >= PlayerDataManager.PlayerData.diceAmount)
             {
-                _player.MoveForward(diceResult);
+                _player.MoveForward(_totalResult);
                 _diceCount = 0;
+                _totalResult = 0;
             }
         }
     }

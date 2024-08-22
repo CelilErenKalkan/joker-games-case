@@ -12,11 +12,6 @@ namespace Game_Management
         private Animator _animator;
         private int _moveCount;
 
-        private bool IsTheLastGrid(int grid)
-        {
-            return grid >= PlayerDataManager.MapOrder.Count;
-        }
-
         // Start is called before the first frame update
         private void OnEnable()
         {
@@ -58,17 +53,9 @@ namespace Game_Management
 
         private void Move()
         {
-            if (IsTheLastGrid(_currentGrid))
-            {
-                _currentGrid = 0;
-                MoveToNextGrid();
-            }
-            else
-            {
-                // Rotate before initiating the jump to ensure the object faces the next grid
-                RotateToNextGrid();
-                _animator.SetTrigger("Jump");
-            }
+            // Rotate before initiating the jump to ensure the object faces the next grid
+            RotateToNextGrid();
+            _animator.SetTrigger("Jump");
         }
         
         private IEnumerator RotateAfterJump()
@@ -79,26 +66,54 @@ namespace Game_Management
             // Now rotate to the next grid
             RotateToNextGrid();
         }
+        
+        private IEnumerator MoveAfterTeleport()
+        {
+            // Wait for the end of the current frame to ensure the animation is fully finished
+            yield return new WaitForEndOfFrame();
+
+            _currentGrid = 0;
+            transform.position = _gameManager.gameMap[_currentGrid].position;
+            _moveCount--;
+            _animator.SetTrigger("TeleportOut");
+        }
+
+        public void GoToInitialGrid()
+        {
+            StartCoroutine(MoveAfterTeleport());
+        }
+
+        public void ResetMove()
+        {
+            MoveForward(_moveCount - 1);
+        }
 
         public void MoveToNextGrid()
         {
             _moveCount--;
-            _currentGrid++;
-
-            // Wait for the animation to finish before rotating
-            StartCoroutine(RotateAfterJump());
-
-            if (_moveCount > 0)
+            if (_currentGrid + 2 >= _gameManager.gameMap.Count)
             {
-                Move();
+                _animator.SetTrigger("TeleportIn");
             }
             else
             {
-                transform.position = _gameManager.gameMap[_currentGrid].position;
-                SetCurrentGrid();
-                CollectItems();
-                PlayerDataManager.SaveData();
-                Actions.NextTurn?.Invoke();
+                _currentGrid++;
+
+                // Wait for the animation to finish before rotating
+                StartCoroutine(RotateAfterJump());
+
+                if (_moveCount > 0)
+                {
+                    Move();
+                }
+                else
+                {
+                    transform.position = _gameManager.gameMap[_currentGrid].position;
+                    SetCurrentGrid();
+                    CollectItems();
+                    PlayerDataManager.SaveData();
+                    Actions.NextTurn?.Invoke();
+                }
             }
         }
 
