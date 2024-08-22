@@ -9,9 +9,10 @@ namespace Game_Management
     {
         // Public GameObjects and Buttons
         public GameObject panelMainGameObject, menuGameObject, scrollBarDiceAmount;
-        public Button buttonLoadGame, buttonNewGame, buttonDiceRoll, buttonReturnToMainMenu, buttonAudio, buttonVibration;
+        public Button buttonLoadGame, buttonNewGame, buttonDiceRoll, buttonReturnToMainMenu, buttonAudio, buttonVibration, openBag, closeBag;
 
         // Private variables for UI elements and data
+        private Animator _animator;
         private Image _audioButtonImage;
         private Image _vibrationButtonImage;
 
@@ -36,6 +37,8 @@ namespace Game_Management
             SetButtons();
             SetDiceAmountTexts();
 
+            if (TryGetComponent(out Animator animator)) _animator = animator;
+            
             // Hide specific UI elements if no map order is available
             if (PlayerDataManager.MapOrder.Count <= 0)
             {
@@ -48,13 +51,36 @@ namespace Game_Management
             Actions.ButtonTapped?.Invoke();
             
             // Switch between new and loaded game states
-            menuGameObject.SetActive(false);
-            panelMainGameObject.SetActive(false);
-            buttonDiceRoll.gameObject.SetActive(true);
-            buttonReturnToMainMenu.gameObject.SetActive(true);
+
             if (isNew) Actions.NewGame?.Invoke();
             else Actions.LoadGame?.Invoke();
+            
+            GameStartAnimation(true);
         }
+
+        #region Animation
+
+        private void GameStartAnimation(bool isStarting)
+        {
+            //menuGameObject.SetActive(false);
+            panelMainGameObject.SetActive(!isStarting);
+            //buttonDiceRoll.gameObject.SetActive(true);
+            //buttonReturnToMainMenu.gameObject.SetActive(true);
+            
+            _animator.SetTrigger(isStarting ? "StartGame" : "EndGame");
+        }
+
+        private void OpenBagAnimation(bool isOpen)
+        {
+            _animator.SetBool("BagOpened", isOpen);
+        }
+
+        private void DiceButtonAnimation(bool isOn)
+        {
+            _animator.SetBool("DBOn", isOn);
+        }
+
+        #endregion
 
         #region Top Left Corner
 
@@ -83,10 +109,12 @@ namespace Game_Management
             
             // Save data and return to the main menu
             PlayerDataManager.SaveData();
-            buttonReturnToMainMenu.gameObject.SetActive(false);
-            buttonDiceRoll.gameObject.SetActive(false);
-            menuGameObject.SetActive(true);
-            panelMainGameObject.SetActive(true);
+            //buttonReturnToMainMenu.gameObject.SetActive(false);
+            //buttonDiceRoll.gameObject.SetActive(false);
+            //menuGameObject.SetActive(true);
+            //panelMainGameObject.SetActive(true);
+            GameStartAnimation(false);
+            DiceButtonAnimation(false);
             Actions.GameEnd?.Invoke();
         }
 
@@ -104,16 +132,18 @@ namespace Game_Management
         private void RollDice()
         {
             // Hide the dice roll button and trigger dice roll action
-            buttonDiceRoll.gameObject.SetActive(false);
+            //buttonDiceRoll.gameObject.SetActive(false);
             
             Actions.ButtonTapped?.Invoke();
             Actions.RollDice?.Invoke(PlayerDataManager.PlayerData.diceAmount);
+            DiceButtonAnimation(false);
         }
 
         private void NextTurn()
         {
             // Show the dice roll button for the next turn
-            buttonDiceRoll.gameObject.SetActive(true);
+            //buttonDiceRoll.gameObject.SetActive(true);
+            DiceButtonAnimation(true);
         }
 
         #endregion
@@ -166,6 +196,8 @@ namespace Game_Management
             buttonReturnToMainMenu.onClick.AddListener(ReturnToMainMenu);
             buttonAudio.onClick.AddListener(ChangeAudioMod);
             buttonVibration.onClick.AddListener(ChangeVibrationMod);
+            openBag.onClick.AddListener(()=> OpenBagAnimation(true));
+            closeBag.onClick.AddListener(()=> OpenBagAnimation(false));
         }
 
         private void SetDiceAmountTexts()

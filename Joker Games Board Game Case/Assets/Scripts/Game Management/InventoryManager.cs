@@ -21,29 +21,29 @@ namespace Game_Management
         private void Start()
         {
             _itemList = PlayerDataManager.PlayerData.itemList;
-            openInventory.onClick.AddListener(OpenInventory);
-            closeInventory.onClick.AddListener(CloseInventory);
+            openInventory.onClick.AddListener(OpenBag);
+            closeInventory.onClick.AddListener(CloseBag);
             SetSlots();
         }
 
-        private void OpenInventory()
+        private void OpenBag()
         {
             Actions.ButtonTapped?.Invoke();
 
             SetInventoryList();
             
-            showInventoryButton.SetActive(false);
-            inventoryObject.SetActive(true);
+            //showInventoryButton.SetActive(false);
+            //inventoryObject.SetActive(true);
         }
 
-        private void CloseInventory()
+        private void CloseBag()
         {
             Actions.ButtonTapped?.Invoke();
             
             SetInventoryList();
 
-            inventoryObject.SetActive(false);
-            showInventoryButton.SetActive(true);
+            //inventoryObject.SetActive(false);
+            //showInventoryButton.SetActive(true);
         }
 
         private void SetInventoryList()

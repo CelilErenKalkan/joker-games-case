@@ -527,6 +527,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardSize: 20
+  _mapOrder: []
 --- !u!114 &653997235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1153,6 +1154,7 @@ GameObject:
   - component: {fileID: 889488916}
   - component: {fileID: 889488915}
   - component: {fileID: 889488914}
+  - component: {fileID: 889488919}
   - component: {fileID: 889488918}
   m_Layer: 5
   m_Name: Canvas
@@ -1272,6 +1274,29 @@ MonoBehaviour:
   buttonReturnToMainMenu: {fileID: 2046733254}
   buttonAudio: {fileID: 990320769}
   buttonVibration: {fileID: 990320768}
+  openBag: {fileID: 959242500}
+  closeBag: {fileID: 1433349160}
+--- !u!95 &889488919
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889488913}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ff6888debbf27b045b2314f71eda99f6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &959242498
 GameObject:
   m_ObjectHideFlags: 0
@@ -2098,6 +2123,14 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6000136152468242794, guid: 0751c8b3fddacf74bad53199926c570a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6930481195603298006, guid: 0751c8b3fddacf74bad53199926c570a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -172
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2678,7 +2711,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -100, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 420, y: 420}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1205320851
@@ -4552,7 +4585,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3859989182835302942, guid: 4d27ca6846df76a4397eb064fb1e6065, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 500
+      value: -2500
       objectReference: {fileID: 0}
     - target: {fileID: 3859989182835302942, guid: 4d27ca6846df76a4397eb064fb1e6065, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

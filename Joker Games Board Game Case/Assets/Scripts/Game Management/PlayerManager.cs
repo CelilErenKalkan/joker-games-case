@@ -18,6 +18,8 @@ namespace Game_Management
             _gameManager = GameManager.Instance;
             _currentGrid = PlayerDataManager.PlayerData.currentGrid;
             if (TryGetComponent(out Animator animator)) _animator = animator;
+            
+            Actions.NextTurn?.Invoke();
         }
 
         private void CollectItems()
