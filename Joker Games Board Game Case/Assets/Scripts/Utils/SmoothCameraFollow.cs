@@ -8,10 +8,13 @@ namespace Utils
     {
         public Vector3 offset;
         [HideInInspector] public Transform target;
-        [HideInInspector] public float smoothSpeed = 10f;
-        [HideInInspector] public float rotationSpeed = 10f; // Speed of rotation around the grids
-        [HideInInspector] public float transitionSpeed = 50f; // Speed of transition when a target appears
+        [HideInInspector] public float smoothSpeed = 2f; // Reduced smooth speed for slower transitions
+        [HideInInspector] public float rotationSpeed = 5f; // Slower rotation speed
         [HideInInspector] public float maxRotationAngle = 360f; // Maximum rotation around grids
+        public float transitionSpeed; // Reduced transition speed when a target appears
+        public float minSpeed; // Minimum speed when close to the target (even slower)
+        public float maxSpeed; // Maximum speed when far from the target (much slower)
+        public float distanceThreshold; // Smaller threshold for gradual speed changes
 
         private Quaternion initialRotation;
         private bool rotatingAroundGrids = false;
@@ -38,7 +41,12 @@ namespace Utils
         private void FollowTarget()
         {
             Vector3 desiredPosition = target.position + offset;
-            Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
+            float distanceToTarget = Vector3.Distance(transform.position, desiredPosition);
+
+            // Adjust speed based on the distance to the target, with even slower speed
+            float dynamicSmoothSpeed = Mathf.Lerp(minSpeed, maxSpeed, distanceToTarget / distanceThreshold);
+
+            Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, dynamicSmoothSpeed * Time.deltaTime);
             transform.position = smoothedPosition;
 
             // Smoothly transition back to the initial rotation when following a target

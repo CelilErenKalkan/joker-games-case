@@ -1526,8 +1526,11 @@ MonoBehaviour:
   target: {fileID: 0}
   smoothSpeed: 1
   rotationSpeed: 10
-  transitionSpeed: 2
   maxRotationAngle: 360
+  transitionSpeed: 5
+  minSpeed: 10
+  maxSpeed: 50
+  distanceThreshold: 200
 --- !u!1 &982883283
 GameObject:
   m_ObjectHideFlags: 0
