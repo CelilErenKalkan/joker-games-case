@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Data_Management;
 using UnityEngine;
 
 namespace Game_Management
@@ -59,6 +60,8 @@ namespace Game_Management
 
         private void PlaySound(int index)
         {
+            if (PlayerDataManager.PlayerData.isMuted) return;
+            
             float time = soundList[index].length + 0.1f;
             var audioObject = Pool.Instance.SpawnObject(transform.position, PoolItemType.AudioSource, null, time);
             if (audioObject.TryGetComponent(out AudioSource audioSource))
