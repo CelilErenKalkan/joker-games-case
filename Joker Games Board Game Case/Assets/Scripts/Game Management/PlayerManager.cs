@@ -77,6 +77,9 @@ namespace Game_Management
             _currentGrid = 0;
             transform.position = _gameManager.gameMap[_currentGrid].position;
             _moveCount--;
+            RotateToNextGrid();
+
+            yield return 1.0f.GetWait();
             _animator.SetTrigger("TeleportOut");
         }
 
