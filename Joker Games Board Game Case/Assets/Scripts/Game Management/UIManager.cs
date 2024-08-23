@@ -2,6 +2,7 @@ using Data_Management;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 namespace Game_Management
 {
@@ -9,7 +10,7 @@ namespace Game_Management
     {
         // Public GameObjects and Buttons
         public GameObject panelMainGameObject, menuGameObject, scrollBarDiceAmount;
-        public Button buttonLoadGame, buttonNewGame, buttonDiceRoll, buttonReturnToMainMenu, buttonAudio, buttonVibration, openBag, closeBag;
+        public Button buttonLoadGame, buttonNewGame, buttonDiceRoll, buttonReturnToMainMenu, buttonAudio, buttonVibration, openBag, closeBag, buttonDiceAmount;
 
         // Private variables for UI elements and data
         private Animator _animator;
@@ -22,12 +23,15 @@ namespace Game_Management
         {
             // Subscribe to the NextTurn action when this object is enabled
             Actions.NextTurn += NextTurn;
+            Actions.DiceAmountChanged += OnDiceAmountChanged;
         }
 
         private void OnDisable()
         {
             // Unsubscribe from the NextTurn action when this object is disabled
             Actions.NextTurn -= NextTurn;
+            Actions.DiceAmountChanged -= OnDiceAmountChanged;
+
         }
 
         private void Start()
@@ -35,7 +39,6 @@ namespace Game_Management
             // Set up sprites, button listeners, and dice amount texts
             SetSprites();
             SetButtons();
-            SetDiceAmountTexts();
 
             if (TryGetComponent(out Animator animator)) _animator = animator;
             
@@ -75,6 +78,11 @@ namespace Game_Management
         {
             _animator.SetBool("DBOn", isOn);
         }
+        
+        private void DiceAmountButtonAnimation()
+        {
+            _animator.SetBool("DAOn", true);
+        }
 
         #endregion
 
@@ -109,6 +117,13 @@ namespace Game_Management
             Actions.GameEnd?.Invoke();
         }
 
+        private void OnDiceAmountChanged(int amount)
+        {
+            _animator.SetBool("DAOn", false);
+            if (buttonDiceAmount.transform.GetChild(2).TryGetComponent(out TMP_Text text))
+                text.text = "x" + amount;
+        }
+
         #endregion
 
         #region In Game
@@ -122,9 +137,6 @@ namespace Game_Management
         
         private void RollDice()
         {
-            // Hide the dice roll button and trigger dice roll action
-            //buttonDiceRoll.gameObject.SetActive(false);
-            
             Actions.ButtonTapped?.Invoke();
             Actions.RollDice?.Invoke(PlayerDataManager.PlayerData.diceAmount);
             DiceButtonAnimation(false);
@@ -132,8 +144,6 @@ namespace Game_Management
 
         private void NextTurn()
         {
-            // Show the dice roll button for the next turn
-            //buttonDiceRoll.gameObject.SetActive(true);
             DiceButtonAnimation(true);
         }
 
@@ -189,23 +199,7 @@ namespace Game_Management
             buttonVibration.onClick.AddListener(ChangeVibrationMod);
             openBag.onClick.AddListener(()=> OpenBagAnimation(true));
             closeBag.onClick.AddListener(()=> OpenBagAnimation(false));
-        }
-
-        private void SetDiceAmountTexts()
-        {
-            // Update dice amount texts based on child transforms
-            foreach (Transform child in scrollBarDiceAmount.transform)
-            {
-                if (child.TryGetComponent(out TMP_Text text))
-                {
-                    int amountNo = child.GetSiblingIndex() + 1;
-                    text.text = "x" + amountNo;
-                }
-                else
-                {
-                    Debug.LogError("TMP_Text component not found on child.");
-                }
-            }
+            buttonDiceAmount.onClick.AddListener(DiceAmountButtonAnimation);
         }
 
         #endregion

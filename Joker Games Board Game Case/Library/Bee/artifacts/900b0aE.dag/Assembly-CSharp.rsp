@@ -376,6 +376,8 @@
 "Assets/Scripts/Item Management/PrizeCollector.cs"
 "Assets/Scripts/Pool.cs"
 "Assets/Scripts/PoolItemType.cs"
+"Assets/Scripts/Utils/CanvasListManager.cs"
+"Assets/Scripts/Utils/ScrollSnap.cs"
 "Assets/Scripts/Utils/SmoothCameraFollow.cs"
 "Assets/Scripts/Utils/Utilities.cs"
 -langversion:9.0
