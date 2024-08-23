@@ -91,12 +91,15 @@ namespace Data_Management
 
         public static Sprite GetCertainItemSprite(ItemType itemType)
         {
-            foreach (var item in PlayerData.itemList)
+            if (PlayerData.itemList.Count > 0)
             {
-                if (item.GetItemType == itemType)
-                    return item.GetIcon;
+                foreach (var item in PlayerData.itemList)
+                {
+                    if (item.GetItemType == itemType)
+                        return item.GetIcon;
+                }
             }
-
+            
             var newItem = ItemFactory.CreateItem(itemType);
             return newItem.GetIcon;
         }

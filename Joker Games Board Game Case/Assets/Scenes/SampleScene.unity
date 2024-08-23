@@ -1318,9 +1318,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bagIcon: {fileID: 959242499}
-  spawnRadius: 300
+  spawnRadius: 150
   moveDuration: 0.5
-  delayBetweenMoves: 1
+  delayBetweenMoves: 1.5
+  randomMoveSpeed: 1
+  randomMoveRadius: 200
 --- !u!1 &959242498
 GameObject:
   m_ObjectHideFlags: 0

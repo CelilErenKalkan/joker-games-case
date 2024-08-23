@@ -12,6 +12,8 @@ namespace Item_Management
         public float spawnRadius; // Radius around player to spawn prizes
         public float moveDuration; // Duration to move to the bag icon
         public float delayBetweenMoves; // Delay between each prize move
+        public float randomMoveSpeed; // Speed for random movement during delay
+        public float randomMoveRadius; // How far the prize can move randomly
 
         private void OnEnable()
         {
@@ -37,8 +39,8 @@ namespace Item_Management
                 if (prize.TryGetComponent(out Image image))
                     image.sprite = PlayerDataManager.GetCertainItemSprite(prizeType);
 
-                // Start coroutine to move the prize to the bag icon
-                StartCoroutine(MovePrizeToBag(prize.transform));
+                // Start coroutine to move the prize randomly away from the player, then move it to the bag icon
+                StartCoroutine(RandomMoveAndMoveToBag(prize.transform, screenPos));
             }
         }
 
@@ -50,12 +52,32 @@ namespace Item_Management
             return screenPos + new Vector3(Mathf.Cos(angle) * distance, Mathf.Sin(angle) * distance, 0f);
         }
 
+        // Coroutine for random movement away from the player before moving to the bag
+        private IEnumerator RandomMoveAndMoveToBag(Transform prize, Vector3 playerScreenPos)
+        {
+            Vector3 startPosition = prize.position;
+            float elapsedTime = 0f;
+            float waitTime = delayBetweenMoves;
+
+            // Calculate direction away from the player
+            Vector3 directionAwayFromPlayer = (prize.position - playerScreenPos).normalized;
+            Vector3 randomTargetPosition = startPosition + directionAwayFromPlayer * randomMoveRadius;
+
+            // Random movement while waiting
+            while (elapsedTime < waitTime)
+            {
+                prize.position = Vector3.Lerp(startPosition, randomTargetPosition, elapsedTime / waitTime);
+                elapsedTime += Time.deltaTime * randomMoveSpeed;
+                yield return null;
+            }
+
+            // After random movement, move to the bag
+            yield return MovePrizeToBag(prize);
+        }
+
         // Coroutine to move the prize to the bag icon
         private IEnumerator MovePrizeToBag(Transform prize)
         {
-            // Wait for a little before moving the prize
-            yield return new WaitForSeconds(delayBetweenMoves);
-
             Vector3 startPosition = prize.position;
             Vector3 endPosition = bagIcon.position;
 
