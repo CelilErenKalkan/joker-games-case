@@ -1263,10 +1263,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eb87743cfca68b42b186d3f57fd3bd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentMusicIndex: 0
   audioSource: {fileID: 740093546}
   musicClip:
-  - {fileID: 8300000, guid: 3f6e98f9d6470476aa366d444e3740d0, type: 3}
+  - {fileID: 8300000, guid: ad581433579c1f04ca0dcadc7673e5bd, type: 3}
+  - {fileID: 8300000, guid: 9d0c259494113d14aa0cd3e76e9ed6ca, type: 3}
   volume: 0.3
 --- !u!114 &653997237
 MonoBehaviour:
@@ -1285,8 +1285,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ba9e11a074c514da6b90a689d0405e2a, type: 3}
   - {fileID: 8300000, guid: 6a8cede686f2d43cf8d65c3e2cdc7207, type: 3}
   - {fileID: 8300000, guid: ac6ada0e1a28e4ea2ba203178edf5c68, type: 3}
-  - {fileID: 8300000, guid: 053a548cac0c61b4f9cbbeb4ec268fa7, type: 3}
+  - {fileID: 8300000, guid: 8f7c3575dd383ff41ab5775715445ea2, type: 3}
   - {fileID: 8300000, guid: 66cd29d6d225dd841934bbf1737c238c, type: 3}
+  - {fileID: 8300000, guid: 053a548cac0c61b4f9cbbeb4ec268fa7, type: 3}
   - {fileID: 8300000, guid: ca66ceb8d31582a479ec62630e7e6a99, type: 3}
   - {fileID: 8300000, guid: 6c793aa0c7b73624ba11227ade4887c3, type: 3}
   - {fileID: 8300000, guid: b66ac730ec0da44088611607c5681e57, type: 3}

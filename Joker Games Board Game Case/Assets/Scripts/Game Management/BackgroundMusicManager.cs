@@ -6,7 +6,6 @@ namespace Game_Management
 {
     public class BackgroundMusicManager : MonoBehaviour
     {
-        public int currentMusicIndex = -1;
         public AudioSource audioSource;
         public List<AudioClip> musicClip;
 
@@ -15,6 +14,9 @@ namespace Game_Management
         private void OnEnable()
         {
             Actions.AudioChanged += SetAudioMod;
+            Actions.LoadGame += PlayInGameMusic;
+            Actions.NewGame += PlayInGameMusic;
+            Actions.GameEnd += PlayMainMenuMusic;
 
             SetAudioMod(PlayerDataManager.PlayerData.isMuted);
         }
@@ -22,11 +24,14 @@ namespace Game_Management
         private void OnDisable()
         {
             Actions.AudioChanged -= SetAudioMod;
+            Actions.LoadGame -= PlayInGameMusic;
+            Actions.NewGame -= PlayInGameMusic;
+            Actions.GameEnd -= PlayMainMenuMusic;
         }
         
         private void Start()
         {
-            NextBackgroundMusic();
+            PlayMainMenuMusic();
         }
         
         private void SetAudioMod(bool isMuted)
@@ -34,18 +39,22 @@ namespace Game_Management
             audioSource.volume = isMuted ? 0 : volume;
         }
 
-        public void ChangeBackgroundMusic(int index)
+        private void StartMusic()
         {
-            audioSource.clip = musicClip[index];
+            
+        }
+
+        private void PlayInGameMusic()
+        {
+            audioSource.pitch = 1f / Time.timeScale;
+            audioSource.clip = musicClip[1];
             audioSource.Play();
         }
 
-        private void NextBackgroundMusic()
+        private void PlayMainMenuMusic()
         {
-            if (currentMusicIndex == musicClip.Count-1) currentMusicIndex = 0;
-            else currentMusicIndex++;
             audioSource.pitch = 1f / Time.timeScale;
-            audioSource.clip = musicClip[currentMusicIndex];
+            audioSource.clip = musicClip[0];
             audioSource.Play();
         }
     }

@@ -32,9 +32,14 @@ namespace Game_Management
             Actions.GameEnd -= OnGameEnd;
         }
 
-        public void PlayerStepped()
+        private void PlayerStepped()
         {
             Actions.PlayerStep?.Invoke();
+        }
+        
+        private void PlayerFinalStepped()
+        {
+            Actions.PlayerFinalStep?.Invoke();
         }
 
         private void CollectItems()

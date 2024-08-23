@@ -15,6 +15,7 @@ namespace Game_Management
         public static Action GridHasFallen;
         public static Action PrizeAddedToBag;
         public static Action PlayerStep;
+        public static Action PlayerFinalStep;
         public static Action DiceToDiceCollision;
         public static Action DiceToFloorCollision;
         public static Action ButtonTapped;

@@ -33,6 +33,8 @@ namespace Item_Management
             // Convert player's world position to screen position
             Vector3 screenPos = Camera.main.WorldToScreenPoint(player.position);
 
+            var delay = delayBetweenMoves;
+            
             // Spawn multiple prizes
             for (int i = 0; i < prizeAmount; i++)
             {
@@ -42,8 +44,8 @@ namespace Item_Management
                     image.sprite = PlayerDataManager.GetCertainItemSprite(prizeType);
 
                 // Start coroutine to move the prize randomly away from the player, then move it to the bag icon
-                StartCoroutine(RandomMoveAndMoveToBag(prize.transform, screenPos, delayBetweenMoves));
-                delayBetweenMoves += 0.1f;
+                StartCoroutine(RandomMoveAndMoveToBag(prize.transform, screenPos, delay));
+                delay += 0.1f;
             }
         }
 
