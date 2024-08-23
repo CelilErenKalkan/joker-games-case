@@ -91,7 +91,7 @@ namespace Data_Management
 
         public static Sprite GetCertainItemSprite(ItemType itemType)
         {
-            if (PlayerData.itemList.Count > 0)
+            if (PlayerData.itemList != null)
             {
                 foreach (var item in PlayerData.itemList)
                 {

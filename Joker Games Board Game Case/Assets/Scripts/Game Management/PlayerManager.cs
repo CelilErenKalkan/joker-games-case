@@ -27,6 +27,7 @@ namespace Game_Management
         {
             int amount = PlayerDataManager.MapOrder[_currentGrid].itemAmount;
             ItemType type = PlayerDataManager.MapOrder[_currentGrid].itemType;
+            if (type == ItemType.Empty) return;
             Actions.PrizesAppeared.Invoke(transform, amount, type);
             PlayerDataManager.Collect();
         }
