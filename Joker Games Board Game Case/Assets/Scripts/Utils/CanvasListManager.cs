@@ -1,8 +1,10 @@
+using System.Collections;
 using Data_Management;
 using Game_Management;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 public class CanvasListManager : MonoBehaviour
 {
@@ -28,10 +30,17 @@ public class CanvasListManager : MonoBehaviour
             text.text = "x" + (child.GetSiblingIndex() + 1);
         }
 
+        StartCoroutine(SetSelectedChildInTime(1.0f));
+    }
+
+
+    private IEnumerator SetSelectedChildInTime(float time)
+    {
+        yield return time.GetWait();
+        
         Transform selectedChild = transform.GetChild(PlayerDataManager.PlayerData.diceAmount - 1);
         MoveToSelectedChild(selectedChild);
     }
-
 
     private void MoveToSelectedChild(Transform selectedChild)
     {

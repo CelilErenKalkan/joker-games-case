@@ -39,6 +39,8 @@ namespace Game_Management
             // Set up sprites, button listeners, and dice amount texts
             SetSprites();
             SetButtons();
+            if (buttonDiceAmount.transform.GetChild(2).TryGetComponent(out TMP_Text text))
+                text.text = "x" + PlayerDataManager.PlayerData.diceAmount;
 
             if (TryGetComponent(out Animator animator)) _animator = animator;
             
