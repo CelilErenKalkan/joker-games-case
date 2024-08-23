@@ -24,6 +24,7 @@ namespace Game_Management
             // Subscribe to the NextTurn action when this object is enabled
             Actions.NextTurn += NextTurn;
             Actions.DiceAmountChanged += OnDiceAmountChanged;
+            Actions.PrizeAddedToBag += OnPrizeAddedToBag;
         }
 
         private void OnDisable()
@@ -31,7 +32,7 @@ namespace Game_Management
             // Unsubscribe from the NextTurn action when this object is disabled
             Actions.NextTurn -= NextTurn;
             Actions.DiceAmountChanged -= OnDiceAmountChanged;
-
+            Actions.PrizeAddedToBag -= OnPrizeAddedToBag;
         }
 
         private void Start()
@@ -84,6 +85,12 @@ namespace Game_Management
         private void DiceAmountButtonAnimation()
         {
             _animator.SetBool("DAOn", true);
+        }
+
+        private void OnPrizeAddedToBag()
+        {
+            Debug.Log("Test");
+            _animator.Play("AddItemToBag");
         }
 
         #endregion

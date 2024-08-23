@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using Data_Management;
 using Game_Management;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace Item_Management
 {
@@ -92,6 +94,7 @@ namespace Item_Management
             prize.position = endPosition;
 
             // After reaching the bag, deactivate the prize
+            Actions.PrizeAddedToBag?.Invoke();
             Pool.Instance.DeactivateObject(prize.gameObject, PoolItemType.Prize);
         }
     }
