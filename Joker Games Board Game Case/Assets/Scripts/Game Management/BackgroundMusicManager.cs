@@ -6,11 +6,11 @@ namespace Game_Management
 {
     public class BackgroundMusicManager : MonoBehaviour
     {
-        public static BackgroundMusicManager BackgroundMusic;
-
         public int currentMusicIndex = -1;
         public AudioSource audioSource;
         public List<AudioClip> musicClip;
+
+        [SerializeField] private float volume;
 
         private void OnEnable()
         {
@@ -31,7 +31,7 @@ namespace Game_Management
         
         private void SetAudioMod(bool isMuted)
         {
-            audioSource.volume = isMuted ? 0 : 1;
+            audioSource.volume = isMuted ? 0 : volume;
         }
 
         public void ChangeBackgroundMusic(int index)
@@ -42,13 +42,11 @@ namespace Game_Management
 
         private void NextBackgroundMusic()
         {
-            currentMusicIndex = PlayerPrefs.GetInt("CurrentBackgroundMusic",-1);
             if (currentMusicIndex == musicClip.Count-1) currentMusicIndex = 0;
             else currentMusicIndex++;
             audioSource.pitch = 1f / Time.timeScale;
             audioSource.clip = musicClip[currentMusicIndex];
             audioSource.Play();
-            PlayerPrefs.SetInt("CurrentBackgroundMusic",currentMusicIndex);
         }
     }
 }

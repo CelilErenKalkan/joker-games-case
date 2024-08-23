@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Data_Management;
 using Item_Management;
@@ -29,6 +30,11 @@ namespace Game_Management
         {
             Actions.MoveForward -= OnMoveForward;
             Actions.GameEnd -= OnGameEnd;
+        }
+
+        public void PlayerStepped()
+        {
+            Actions.PlayerStep?.Invoke();
         }
 
         private void CollectItems()

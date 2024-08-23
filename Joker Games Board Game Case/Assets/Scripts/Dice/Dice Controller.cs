@@ -1,3 +1,4 @@
+using System;
 using Game_Management;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -8,7 +9,6 @@ namespace Dice
     {
         private GameManager _gameManager;
         private Rigidbody _rigidbody;
-        private BoxCollider _boxCollider;
         private bool _once;
 
         private void OnEnable()
@@ -24,7 +24,6 @@ namespace Dice
         {
             _gameManager = GameManager.Instance;
             if (TryGetComponent(out Rigidbody rb)) _rigidbody = rb;
-            if (TryGetComponent(out BoxCollider boxCollider)) _boxCollider = boxCollider;
             SetRandomFaceOnPlatform(); // Set a random starting face on the platform
         }
 
@@ -99,6 +98,18 @@ namespace Dice
                 _once = true;
                 Reset(); // Detect result and reset for next throw
             }
+        }
+
+        #endregion
+
+        #region Dice Collisions
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.TryGetComponent(out DiceController diceController))
+                Actions.DiceToDiceCollision?.Invoke();
+            else
+                Actions.DiceToFloorCollision?.Invoke();
         }
 
         #endregion

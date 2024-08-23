@@ -17,6 +17,10 @@ namespace Game_Management
             Actions.NextTurn += OnNextTurn;
             Actions.GridAppeared += OnGridAppeared;
             Actions.GridHasFallen += OnGridHasFallen;
+            Actions.PlayerStep += OnPlayerStep;
+            Actions.DiceToDiceCollision += OnDiceToDiceCollision;
+            Actions.DiceToFloorCollision += OnDiceToFloorCollision;
+            Actions.PrizeAddedToBag += OnPrizeAddedToBag;
         }
         
         private void OnDisable()
@@ -26,6 +30,10 @@ namespace Game_Management
             Actions.NextTurn -= OnNextTurn;
             Actions.GridAppeared -= OnGridAppeared;
             Actions.GridHasFallen -= OnGridHasFallen;
+            Actions.PlayerStep -= OnPlayerStep;
+            Actions.DiceToDiceCollision -= OnDiceToDiceCollision;
+            Actions.DiceToFloorCollision -= OnDiceToFloorCollision;
+            Actions.PrizeAddedToBag -= OnPrizeAddedToBag;
         }
 
         private void Start()
@@ -56,6 +64,26 @@ namespace Game_Management
         private void OnGridHasFallen()
         {
             PlaySound(4);
+        }
+        
+        private void OnPlayerStep()
+        {
+            PlaySound(5);
+        }
+
+        private void OnDiceToDiceCollision()
+        {
+            PlaySound(6);
+        }
+        
+        private void OnDiceToFloorCollision()
+        {
+            PlaySound(7);
+        }
+        
+        private void OnPrizeAddedToBag()
+        {
+            PlaySound(8);
         }
 
         private void PlaySound(int index)

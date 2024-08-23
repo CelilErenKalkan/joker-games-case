@@ -1267,6 +1267,7 @@ MonoBehaviour:
   audioSource: {fileID: 740093546}
   musicClip:
   - {fileID: 8300000, guid: 3f6e98f9d6470476aa366d444e3740d0, type: 3}
+  volume: 0.3
 --- !u!114 &653997237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1285,6 +1286,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6a8cede686f2d43cf8d65c3e2cdc7207, type: 3}
   - {fileID: 8300000, guid: ac6ada0e1a28e4ea2ba203178edf5c68, type: 3}
   - {fileID: 8300000, guid: 053a548cac0c61b4f9cbbeb4ec268fa7, type: 3}
+  - {fileID: 8300000, guid: 66cd29d6d225dd841934bbf1737c238c, type: 3}
+  - {fileID: 8300000, guid: ca66ceb8d31582a479ec62630e7e6a99, type: 3}
+  - {fileID: 8300000, guid: 6c793aa0c7b73624ba11227ade4887c3, type: 3}
+  - {fileID: 8300000, guid: b66ac730ec0da44088611607c5681e57, type: 3}
 --- !u!1 &686791069
 GameObject:
   m_ObjectHideFlags: 0
@@ -1911,8 +1916,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotsParent: {fileID: 1903386187}
-  showInventoryButton: {fileID: 959242498}
-  inventoryObject: {fileID: 1205320849}
   openInventory: {fileID: 959242500}
   closeInventory: {fileID: 1433349160}
   _itemList: []
@@ -2535,7 +2538,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelMainGameObject: {fileID: 990320767}
   menuGameObject: {fileID: 1896409516493191280}
-  scrollBarDiceAmount: {fileID: 69854980}
   buttonLoadGame: {fileID: 4276367977533364033}
   buttonNewGame: {fileID: 4276367977533364032}
   buttonDiceRoll: {fileID: 7264891375668764600}

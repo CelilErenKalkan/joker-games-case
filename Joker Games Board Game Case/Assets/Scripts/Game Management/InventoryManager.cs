@@ -10,7 +10,6 @@ namespace Game_Management
     public class InventoryManager : MonoBehaviour
     {
         [SerializeField] private Transform slotsParent;
-        [SerializeField] private GameObject showInventoryButton, inventoryObject;
         private readonly List<Image> slotImages = new List<Image>();
         private readonly List<TMP_Text> itemAmountList = new List<TMP_Text>();
 

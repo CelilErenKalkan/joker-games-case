@@ -5,7 +5,7 @@ namespace Utils
 {
     public static class Utilities
     {
-        private static Dictionary<float, WaitForSeconds> waitList;
+        private static Dictionary<float, WaitForSeconds> _waitList;
         
         /// <summary>
         /// Store wfs for next usage for better optimization
@@ -14,16 +14,16 @@ namespace Utils
         /// <returns></returns>
         public static WaitForSeconds GetWait(this float time)
         {
-            if (waitList == null) waitList = new Dictionary<float, WaitForSeconds>();
-            if (!waitList.ContainsKey(time))
+            if (_waitList == null) _waitList = new Dictionary<float, WaitForSeconds>();
+            if (!_waitList.ContainsKey(time))
             {
                 WaitForSeconds waitTime = new WaitForSeconds(time);
-                waitList.Add(time, waitTime);
+                _waitList.Add(time, waitTime);
                 return waitTime;
             }
             else
             {
-                return waitList[time];
+                return _waitList[time];
             }
         }
     }
