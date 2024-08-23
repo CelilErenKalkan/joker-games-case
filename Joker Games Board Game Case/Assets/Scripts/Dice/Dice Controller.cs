@@ -9,118 +9,98 @@ namespace Dice
         private GameManager _gameManager;
         private Rigidbody _rigidbody;
         private BoxCollider _boxCollider;
-
-        private Vector3 initPosition;
-        private Quaternion initRotation;
         private bool _once;
 
-        private bool IsDiceStill()
+        private void OnEnable()
         {
-            Vector3 velocity;
-            return (velocity = _rigidbody.velocity).x < 0.05f && velocity.y < 0.05f &&
-                   velocity.x > -0.05f && velocity.y > -0.05f;
+            _once = true;
+            SetDice(); // Initialize dice settings
+            Throw();   // Throw the dice with random force and torque
+            _once = false;
         }
-        
-        // Checks if the dice is grounded.
-        private bool IsDiceGrounded() => _rigidbody.velocity.y == 0;
-        
-        // Set variables of the dice
+
+        // Set variables of the dice and assign components
         private void SetDice()
         {
             _gameManager = GameManager.Instance;
             if (TryGetComponent(out Rigidbody rb)) _rigidbody = rb;
             if (TryGetComponent(out BoxCollider boxCollider)) _boxCollider = boxCollider;
-            SetRandomFaceOnPlatform();
-        }
-        
-        private void OnEnable()
-        {
-            _once = true;
-            SetDice();
-            Throw();
-            _once = false;
+            SetRandomFaceOnPlatform(); // Set a random starting face on the platform
         }
 
-        // Detects the result of the dice by using cross and dot product
+        #region Dice Mechanics
+
+        // Checks if the dice has stopped moving
+        private bool IsDiceStill()
+        {
+            Vector3 velocity = _rigidbody.velocity;
+            return Mathf.Abs(velocity.x) < 0.05f && Mathf.Abs(velocity.y) < 0.05f;
+        }
+
+        // Checks if the dice is grounded (not moving vertically)
+        private bool IsDiceGrounded() => _rigidbody.velocity.y == 0;
+
+        // Detects the result of the dice by checking its orientation
         private void DetectResult()
         {
             int result = 1;
-            if (  Vector3.Cross(Vector3.up, transform.right).magnitude < 0.5f) //x axis a.b.sin theta < 45
+
+            // Determine the result based on the dice's orientation using cross and dot products
+            if (Vector3.Cross(Vector3.up, transform.right).magnitude < 0.5f)
             {
-                if (Vector3.Dot(Vector3.up, transform.right) > 0) // 6th Face
-                {
-                    result = 6;
-                }
-                else // 1st Face
-                {
-                    result = 1;
-                }
+                result = Vector3.Dot(Vector3.up, transform.right) > 0 ? 6 : 1;
             }
-            else if ( Vector3.Cross(Vector3.up, transform.up).magnitude < 0.5f) //y axis
+            else if (Vector3.Cross(Vector3.up, transform.up).magnitude < 0.5f)
             {
-                if (Vector3.Dot(Vector3.up, transform.up) > 0) // 3rd Face
-                {
-                    result = 3;
-                }
-                else // 4th Face
-                {
-                    result = 4;
-                }
+                result = Vector3.Dot(Vector3.up, transform.up) > 0 ? 3 : 4;
             }
-            else if ( Vector3.Cross(Vector3.up, transform.forward).magnitude < 0.5f) //z axis
+            else if (Vector3.Cross(Vector3.up, transform.forward).magnitude < 0.5f)
             {
-                if (Vector3.Dot(Vector3.up, transform.forward) > 0) // 5th Face
-                {
-                    result = 5;
-                }
-                else // 2nd Face
-                {
-                    result = 2;
-                }
+                result = Vector3.Dot(Vector3.up, transform.forward) > 0 ? 5 : 2;
             }
-            
+
             Actions.DiceResult?.Invoke(result);
         }
-        
-        // Sets the dice sitting on the platform with a random rotation considering faces.
+
+        // Sets the dice on the platform with a random face facing up
         private void SetRandomFaceOnPlatform()
         {
-            int[] angles = new [] { -90, 0, 90, 180 };
-            
-            int randomX = Random.Range(0, 4);
-            int x = angles[randomX];
-
-            transform.localEulerAngles = new Vector3(x, 0, 0);
+            int[] angles = { -90, 0, 90, 180 };
+            transform.localEulerAngles = new Vector3(angles[Random.Range(0, 4)], 0, 0);
         }
-        
-        // Throws the dice with a random rotation and calculated parabolic movement
+
+        // Throws the dice with random force and rotation
         private void Throw()
         {
-            float dirX = Random.Range(-1000, 1000); // random x
-            float dirY = Random.Range(-1000, 1000); // random y
-            float dirZ = Random.Range(-1000, 1000); // random z
+            _rigidbody.AddRelativeTorque(
+                Random.Range(-1000, 1000),
+                Random.Range(-1000, 1000),
+                Random.Range(-1000, 1000)
+            );
 
-            _rigidbody.AddRelativeTorque(dirX, dirY, dirZ);
             _rigidbody.AddForce(Vector3.up * Random.Range(-120, -80), ForceMode.Impulse);
             _rigidbody.AddForce(Vector3.forward * Random.Range(50, 30), ForceMode.Impulse);
         }
-        
-        // Resets dice variables before relaunch
+
+        #endregion
+
+        #region Game Flow
+
+        // Resets the dice and checks for game state
         private void Reset()
         {
-            // Prevents activating dice after the game ends.
-            if (_gameManager.isPlayable)
-                DetectResult();
+            if (_gameManager.isPlayable) DetectResult();
         }
 
-        // Update is called once per frame
         private void Update()
         {
             if (IsDiceStill() && IsDiceGrounded() && !_once)
             {
                 _once = true;
-                Reset();
+                Reset(); // Detect result and reset for next throw
             }
         }
+
+        #endregion
     }
 }

@@ -127,7 +127,7 @@ namespace Data_Management
             
             var newItem = ItemFactory.CreateItem(itemType);
             PlayerData.itemList.Add(newItem);
-            newItem.itemAmount = 1;
+            newItem.itemAmount += amount;
         }
         
         #endregion

@@ -12,7 +12,6 @@ namespace Board
 {
     public class BoardGenerator : MonoBehaviour
     {
-        
         // Custom struct to represent a point on the grid
         // Includes coordinates (x, y), an ItemType, and an itemAmount
         [Serializable]
@@ -34,9 +33,9 @@ namespace Board
 
         private GameManager _gameManager;
         private Pool _pool;
-        
+
         [SerializeField] [Range(10, 100)] private int boardSize; // Size of the grid (NxN)
-        [SerializeField]private List<Point> _mapOrder; // List to store the generated path of Points
+        [SerializeField] private List<Point> _mapOrder; // List to store the generated path of Points
 
         private void OnEnable()
         {
@@ -49,32 +48,32 @@ namespace Board
             Actions.NewGame -= NewMap;
             Actions.LoadGame -= LoadMap;
         }
-        
+
         private void Start()
         {
             _gameManager = GameManager.Instance;
             _pool = Pool.Instance;
         }
 
+        #region Map Generation
+
+        // Called when starting a new game, this method generates a new map
         private void NewMap()
         {
             var gridList = _gameManager.gameMap;
             if (gridList.Count > 0)
             {
-                var initialCount = gridList.Count;
-                for (var i = 0; i < initialCount; i++)
-                {
-                    _pool.DeactivateObject(gridList[0].gameObject, PoolItemType.Grid);
-                    gridList.RemoveAt(0);
-                }
+                ClearExistingMap(gridList);
             }
 
             _mapOrder = new List<Point>();
             PlayerDataManager.PlayerData.currentGrid = 0;
-            GenerateBoard(); // Trigger the board generation process when the game starts   
+
+            GenerateBoard(); // Trigger the board generation process when the game starts
             StartCoroutine(GenerateGridObjects());
         }
-        
+
+        // Called when loading a saved game, this method loads the saved map
         private void LoadMap()
         {
             if (_mapOrder.Count > 0)
@@ -84,14 +83,64 @@ namespace Board
             else
             {
                 _mapOrder = PlayerDataManager.MapOrder;
-            
+
                 if (_mapOrder is not { Count: > 0 })
                 {
-                    GenerateBoard(); // Trigger the board generation process when the game starts   
+                    GenerateBoard(); // Trigger the board generation process when the game starts
                 }
-            
+
                 StartCoroutine(GenerateGridObjects());
             }
+        }
+
+        // Method to clear existing map objects
+        private void ClearExistingMap(List<Transform> gridList)
+        {
+            var initialCount = gridList.Count;
+            for (var i = 0; i < initialCount; i++)
+            {
+                _pool.DeactivateObject(gridList[0].gameObject, PoolItemType.Grid);
+                gridList.RemoveAt(0);
+            }
+        }
+
+        #endregion
+
+        #region Pathfinding and Board Generation
+
+        // Main method to generate the entire board
+        private void GenerateBoard()
+        {
+            bool isValidBoard = false;
+
+            while (!isValidBoard)
+            {
+                _mapOrder = new List<Point>();
+                GenerateGridOrder();
+
+                if (_mapOrder.Count >= boardSize)
+                {
+                    isValidBoard = true;
+                    PlayerDataManager.SaveMapOrder(_mapOrder);
+                }
+                else
+                {
+                    Debug.LogWarning("Generated grid order is smaller than board size. Restarting the process...");
+                }
+            }
+        }
+
+        // Method to initialize and generate the grid path
+        private void GenerateGridOrder()
+        {
+            // Choose random starting and ending points within the grid
+            var startingPoint = new Point(Random.Range(0, boardSize / 2), Random.Range(0, boardSize / 2));
+            var endingPoint = new Point(Random.Range(boardSize / 2, boardSize), Random.Range(boardSize / 2, boardSize));
+
+            var visited = new bool[boardSize, boardSize]; // Array to track visited points
+            visited[startingPoint.x, startingPoint.y] = true; // Mark the starting point as visited
+
+            FindPath(startingPoint, endingPoint, visited); // Find a path from start to end
         }
 
         // Method to find a path from the starting point to the target point
@@ -103,11 +152,11 @@ namespace Board
             // Assign a random itemType and itemAmount to the first Point
             current.itemType = (ItemType)Random.Range(0, Enum.GetValues(typeof(ItemType)).Length);
             current.itemAmount = Random.Range(0, 16); // Random amount between 0 and 15 inclusive
-            
+
             // Continue pathfinding until reaching the target or exceeding maxIterations
             while ((current.x != target.x || current.y != target.y) && iterations < maxIterations)
             {
-                // Add the current point to the path (_gridOrder)
+                // Add the current point to the path (_mapOrder)
                 _mapOrder.Add(new Point(current.x, current.y, current.itemType, current.itemAmount));
                 current = GetNextValidPoint(current, target, visited, boardSize); // Get the next valid point in the path
                 iterations++;
@@ -197,24 +246,9 @@ namespace Board
             return count;
         }
 
-        // Method to initialize and generate the grid path
-        private void GenerateGridOrder()
-        {
-            // Choose random starting and ending points within the grid
-            var startingPoint = new Point(Random.Range(0, boardSize / 2), Random.Range(0, boardSize / 2));
-            var endingPoint = new Point(Random.Range(boardSize / 2, boardSize), Random.Range(boardSize / 2, boardSize));
+        #endregion
 
-            var visited = new bool[boardSize, boardSize]; // Array to track visited points
-            visited[startingPoint.x, startingPoint.y] = true; // Mark the starting point as visited
-
-            FindPath(startingPoint, endingPoint, visited); // Find a path from start to end
-        }
-
-        // Convert a grid position to a real-world position in the game
-        private Vector3 GetRealWorldPositionOfTheGrid(int size, Point gridPosition)
-        {
-            return new Vector3(gridPosition.x * size, 0, gridPosition.y * size);
-        }
+        #region Grid Object Generation
 
         // Method to generate and place objects on the grid based on the generated path
         private IEnumerator GenerateGridObjects()
@@ -235,26 +269,12 @@ namespace Board
             Actions.GameStart?.Invoke();
         }
 
-        // Main method to generate the entire board
-        private void GenerateBoard()
+        // Convert a grid position to a real-world position in the game
+        private Vector3 GetRealWorldPositionOfTheGrid(int size, Point gridPosition)
         {
-            bool isValidBoard = false;
-    
-            while (!isValidBoard)
-            {
-                _mapOrder = new List<Point>();
-                GenerateGridOrder();
-
-                if (_mapOrder.Count >= boardSize)
-                {
-                    isValidBoard = true;
-                    PlayerDataManager.SaveMapOrder(_mapOrder);
-                }
-                else
-                {
-                    Debug.LogWarning("Generated grid order is smaller than board size. Restarting the process...");
-                }
-            }
+            return new Vector3(gridPosition.x * size, 0, gridPosition.y * size);
         }
+
+        #endregion
     }
 }

@@ -63,7 +63,7 @@ namespace Game_Management
             if (PlayerDataManager.PlayerData.isMuted) return;
             
             float time = soundList[index].length + 0.1f;
-            var audioObject = Pool.Instance.SpawnObject(transform.position, PoolItemType.AudioSource, null, time);
+            var audioObject = _pool.SpawnObject(transform.position, PoolItemType.AudioSource, null, time);
             if (audioObject.TryGetComponent(out AudioSource audioSource))
             {
                 audioSource.pitch = 1f / Time.timeScale;
