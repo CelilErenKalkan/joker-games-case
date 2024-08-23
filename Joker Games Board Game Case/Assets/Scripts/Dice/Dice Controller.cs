@@ -22,7 +22,7 @@ namespace Dice
         }
         
         // Checks if the dice is grounded.
-        public bool IsDiceGrounded() => _rigidbody.velocity.y == 0;
+        private bool IsDiceGrounded() => _rigidbody.velocity.y == 0;
         
         // Set variables of the dice
         private void SetDice()
@@ -30,14 +30,12 @@ namespace Dice
             _gameManager = GameManager.Instance;
             if (TryGetComponent(out Rigidbody rb)) _rigidbody = rb;
             if (TryGetComponent(out BoxCollider boxCollider)) _boxCollider = boxCollider;
-            //initPosition = transform.localPosition;
-            initRotation = transform.localRotation;
-            transform.localRotation = initRotation;
             SetRandomFaceOnPlatform();
         }
         
         private void OnEnable()
         {
+            _once = true;
             SetDice();
             Throw();
             _once = false;

@@ -2580,7 +2580,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bagIcon: {fileID: 959242499}
   spawnRadius: 150
-  moveDuration: 0.5
+  moveDuration: 0.2
   delayBetweenMoves: 1.5
   randomMoveSpeed: 1
   randomMoveRadius: 200

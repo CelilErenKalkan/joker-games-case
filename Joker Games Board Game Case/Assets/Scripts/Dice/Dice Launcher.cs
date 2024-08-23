@@ -44,7 +44,7 @@ namespace Dice
                 var dice = _pool.SpawnObject(SelectRandomSpawnPoint(), PoolItemType.Dice, null);
                 _spawnedDices.Add(dice);
             }
-            Time.timeScale = 4;
+            Time.timeScale = 3;
         }
 
         private void RemoveAllDices()
@@ -59,12 +59,12 @@ namespace Dice
         
         private void ResultCalculator(int diceResult)
         {
-            Time.timeScale = 1;
             _totalResult += diceResult;
             _diceCount++;
 
             if (_diceCount >= PlayerDataManager.PlayerData.diceAmount)
             {
+                Time.timeScale = 1;
                 RemoveAllDices();
                 Actions.MoveForward?.Invoke(_totalResult);
                 _diceCount = 0;
