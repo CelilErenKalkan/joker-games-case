@@ -32,6 +32,9 @@ namespace Board
             }
         }
 
+        private GameManager _gameManager;
+        private Pool _pool;
+        
         [SerializeField] [Range(10, 100)] private int boardSize; // Size of the grid (NxN)
         [SerializeField]private List<Point> _mapOrder; // List to store the generated path of Points
 
@@ -49,12 +52,25 @@ namespace Board
         
         private void Start()
         {
-            
+            _gameManager = GameManager.Instance;
+            _pool = Pool.Instance;
         }
 
         private void NewMap()
         {
+            var gridList = _gameManager.gameMap;
+            if (gridList.Count > 0)
+            {
+                var initialCount = gridList.Count;
+                for (var i = 0; i < initialCount; i++)
+                {
+                    _pool.DeactivateObject(gridList[0].gameObject, PoolItemType.Grid);
+                    gridList.RemoveAt(0);
+                }
+            }
+
             _mapOrder = new List<Point>();
+            PlayerDataManager.PlayerData.currentGrid = 0;
             GenerateBoard(); // Trigger the board generation process when the game starts   
             StartCoroutine(GenerateGridObjects());
         }
