@@ -19,5 +19,6 @@ namespace Game_Management
         public static Action GridAppeared;
         public static Action GridHasFallen;
         public static Action<Transform, int, ItemType> PrizesAppeared;
+        public static Action<int> MoveForward;
     }
 }

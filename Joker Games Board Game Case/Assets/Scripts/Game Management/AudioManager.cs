@@ -66,6 +66,7 @@ namespace Game_Management
             var audioObject = Pool.Instance.SpawnObject(transform.position, PoolItemType.AudioSource, null, time);
             if (audioObject.TryGetComponent(out AudioSource audioSource))
             {
+                audioSource.pitch = 1f / Time.timeScale;
                 audioSource.clip = soundList[index];
                 audioSource.Play();
             }

@@ -30,8 +30,10 @@ namespace Dice
             _gameManager = GameManager.Instance;
             if (TryGetComponent(out Rigidbody rb)) _rigidbody = rb;
             if (TryGetComponent(out BoxCollider boxCollider)) _boxCollider = boxCollider;
-            initPosition = transform.localPosition;
+            //initPosition = transform.localPosition;
             initRotation = transform.localRotation;
+            transform.localRotation = initRotation;
+            SetRandomFaceOnPlatform();
         }
         
         private void OnEnable()
@@ -80,7 +82,6 @@ namespace Dice
             }
             
             Actions.DiceResult?.Invoke(result);
-            
         }
         
         // Sets the dice sitting on the platform with a random rotation considering faces.
@@ -112,11 +113,6 @@ namespace Dice
             // Prevents activating dice after the game ends.
             if (_gameManager.isPlayable)
                 DetectResult();
-            
-            transform.localPosition = initPosition;
-            transform.localRotation = initRotation;
-            SetRandomFaceOnPlatform();
-            Pool.Instance.DeactivateObject(gameObject, PoolItemType.Dice, 0.1f);
         }
 
         // Update is called once per frame

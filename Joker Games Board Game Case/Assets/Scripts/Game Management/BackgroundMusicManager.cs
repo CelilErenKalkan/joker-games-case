@@ -45,6 +45,7 @@ namespace Game_Management
             currentMusicIndex = PlayerPrefs.GetInt("CurrentBackgroundMusic",-1);
             if (currentMusicIndex == musicClip.Count-1) currentMusicIndex = 0;
             else currentMusicIndex++;
+            audioSource.pitch = 1f / Time.timeScale;
             audioSource.clip = musicClip[currentMusicIndex];
             audioSource.Play();
             PlayerPrefs.SetInt("CurrentBackgroundMusic",currentMusicIndex);

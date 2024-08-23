@@ -19,8 +19,16 @@ namespace Game_Management
             _gameManager = GameManager.Instance;
             _currentGrid = PlayerDataManager.PlayerData.currentGrid;
             if (TryGetComponent(out Animator animator)) _animator = animator;
-            
+
+            Actions.MoveForward += OnMoveForward;
+            Actions.GameEnd += OnGameEnd;
             Actions.NextTurn?.Invoke();
+        }
+        
+        private void OnDisable()
+        {
+            Actions.MoveForward -= OnMoveForward;
+            Actions.GameEnd -= OnGameEnd;
         }
 
         private void CollectItems()
@@ -95,7 +103,7 @@ namespace Game_Management
 
         public void ResetMove()
         {
-            MoveForward(_moveCount - 1);
+            OnMoveForward(_moveCount - 1);
         }
 
         public void MoveToNextGrid()
@@ -127,11 +135,15 @@ namespace Game_Management
             }
         }
 
-        public void MoveForward(int diceResult)
+        private void OnMoveForward(int diceResult)
         {
             _moveCount = diceResult;
             Move();
         }
 
+        private void OnGameEnd()
+        {
+            Pool.Instance.DeactivateObject(gameObject, PoolItemType.Player);
+        }
     }
 }
