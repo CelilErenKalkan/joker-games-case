@@ -2,14 +2,13 @@ using Data_Management;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Utils;
 
 namespace Game_Management
 {
     public class UIManager : MonoBehaviour
     {
         // Public GameObjects and Buttons
-        public GameObject panelMainGameObject, menuGameObject, scrollBarDiceAmount;
+        public GameObject panelMainGameObject, menuGameObject;
         public Button buttonLoadGame, buttonNewGame, buttonDiceRoll, buttonReturnToMainMenu, buttonAudio, buttonVibration, openBag, closeBag, buttonDiceAmount;
 
         // Private variables for UI elements and data
@@ -89,8 +88,7 @@ namespace Game_Management
 
         private void OnPrizeAddedToBag()
         {
-            Debug.Log("Test");
-            _animator.Play("AddItemToBag");
+            _animator.Play("Add_Item_To_Bag");
         }
 
         #endregion
