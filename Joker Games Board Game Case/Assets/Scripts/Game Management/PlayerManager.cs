@@ -32,15 +32,14 @@ namespace Game_Management
             Actions.GameEnd -= OnGameEnd;
         }
 
-        private void PlayerStepped()
-        {
-            Actions.PlayerStep?.Invoke();
-        }
-        
-        private void PlayerFinalStepped()
-        {
-            Actions.PlayerFinalStep?.Invoke();
-        }
+        #region Event Calls
+
+        private void PlayerStepped() => Actions.PlayerStep?.Invoke();
+        private void PlayerFinalStepped() => Actions.PlayerFinalStep?.Invoke();
+        private void PlayerTeleportIn() => Actions.PlayerTeleportIn?.Invoke();
+        private void PlayerTeleportOut() => Actions.PlayerTeleportOut?.Invoke();
+
+            #endregion
 
         private void CollectItems()
         {

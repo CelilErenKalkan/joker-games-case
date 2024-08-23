@@ -16,6 +16,8 @@ namespace Game_Management
         public static Action PrizeAddedToBag;
         public static Action PlayerStep;
         public static Action PlayerFinalStep;
+        public static Action PlayerTeleportIn;
+        public static Action PlayerTeleportOut;
         public static Action DiceToDiceCollision;
         public static Action DiceToFloorCollision;
         public static Action ButtonTapped;

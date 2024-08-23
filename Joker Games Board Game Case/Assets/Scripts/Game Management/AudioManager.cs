@@ -19,6 +19,8 @@ namespace Game_Management
             Actions.GridHasFallen += OnGridHasFallen;
             Actions.PlayerStep += OnPlayerStep;
             Actions.PlayerFinalStep += OnPlayerFinalStep;
+            Actions.PlayerTeleportIn += OnPlayerTeleportIn;
+            Actions.PlayerTeleportOut += OnPlayerTeleportOut;
             Actions.DiceToDiceCollision += OnDiceToDiceCollision;
             Actions.DiceToFloorCollision += OnDiceToFloorCollision;
             Actions.PrizeAddedToBag += OnPrizeAddedToBag;
@@ -33,6 +35,8 @@ namespace Game_Management
             Actions.GridHasFallen -= OnGridHasFallen;
             Actions.PlayerStep -= OnPlayerStep;
             Actions.PlayerFinalStep -= OnPlayerFinalStep;
+            Actions.PlayerTeleportIn -= OnPlayerTeleportIn;
+            Actions.PlayerTeleportOut -= OnPlayerTeleportOut;
             Actions.DiceToDiceCollision -= OnDiceToDiceCollision;
             Actions.DiceToFloorCollision -= OnDiceToFloorCollision;
             Actions.PrizeAddedToBag -= OnPrizeAddedToBag;
@@ -78,19 +82,29 @@ namespace Game_Management
             PlaySound(6);
         }
         
-        private void OnDiceToDiceCollision()
+        private void OnPlayerTeleportIn()
         {
             PlaySound(7);
         }
         
-        private void OnDiceToFloorCollision()
+        private void OnPlayerTeleportOut()
         {
             PlaySound(8);
         }
         
-        private void OnPrizeAddedToBag()
+        private void OnDiceToDiceCollision()
         {
             PlaySound(9);
+        }
+        
+        private void OnDiceToFloorCollision()
+        {
+            PlaySound(10);
+        }
+        
+        private void OnPrizeAddedToBag()
+        {
+            PlaySound(11);
         }
 
         private void PlaySound(int index)
