@@ -40,7 +40,8 @@ namespace Item_Management
                     image.sprite = PlayerDataManager.GetCertainItemSprite(prizeType);
 
                 // Start coroutine to move the prize randomly away from the player, then move it to the bag icon
-                StartCoroutine(RandomMoveAndMoveToBag(prize.transform, screenPos));
+                StartCoroutine(RandomMoveAndMoveToBag(prize.transform, screenPos, delayBetweenMoves));
+                delayBetweenMoves += 0.1f;
             }
         }
 
@@ -53,11 +54,10 @@ namespace Item_Management
         }
 
         // Coroutine for random movement away from the player before moving to the bag
-        private IEnumerator RandomMoveAndMoveToBag(Transform prize, Vector3 playerScreenPos)
+        private IEnumerator RandomMoveAndMoveToBag(Transform prize, Vector3 playerScreenPos, float waitTime)
         {
             Vector3 startPosition = prize.position;
             float elapsedTime = 0f;
-            float waitTime = delayBetweenMoves;
 
             // Calculate direction away from the player
             Vector3 directionAwayFromPlayer = (prize.position - playerScreenPos).normalized;
