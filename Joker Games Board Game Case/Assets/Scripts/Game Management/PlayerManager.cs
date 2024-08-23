@@ -70,7 +70,7 @@ namespace Game_Management
         {
             // Rotate before initiating the jump to ensure the object faces the next grid
             RotateToNextGrid();
-            _animator.SetTrigger("Jump");
+            _animator.SetTrigger(_moveCount > 1 ? "Jump" : "FinalJump");
         }
         
         private IEnumerator RotateAfterJump()

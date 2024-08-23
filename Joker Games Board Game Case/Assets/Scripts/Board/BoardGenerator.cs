@@ -81,10 +81,10 @@ namespace Board
         // Method to find a path from the starting point to the target point
         private void FindPath(Point current, Point target, bool[,] visited)
         {
-            int maxIterations = boardSize * boardSize * 2; // Safeguard limit to prevent infinite loops
+            int maxIterations = boardSize * boardSize; // Safeguard limit to prevent infinite loops
             int iterations = 0;
 
-            // Assign a random itemType and itemAmount to the currentPoint
+            // Assign a random itemType and itemAmount to the first Point
             current.itemType = (ItemType)Random.Range(0, Enum.GetValues(typeof(ItemType)).Length);
             current.itemAmount = Random.Range(0, 16); // Random amount between 0 and 15 inclusive
             
@@ -142,8 +142,8 @@ namespace Board
             {
                 var nextPoint = possibleDir[Random.Range(0, possibleDir.Count)];
                 // Assign a random itemType and itemAmount to the nextPoint
-                nextPoint.itemType = (ItemType)Random.Range(1, Enum.GetValues(typeof(ItemType)).Length);
-                nextPoint.itemAmount = Random.Range(0, 11); // Random amount between 0 and 10 inclusive
+                nextPoint.itemType = (ItemType)Random.Range(0, Enum.GetValues(typeof(ItemType)).Length);
+                nextPoint.itemAmount = Random.Range(1, 16); // Random amount between 0 and 15 inclusive
                 visited[nextPoint.x, nextPoint.y] = true; // Mark the point as visited
                 return nextPoint;
             }
@@ -205,9 +205,6 @@ namespace Board
         {
             foreach (var point in _mapOrder)
             {
-                // Log the point's details for debugging
-                //Debug.Log($"Point: ({point.x}, {point.y}), ItemType: {point.itemType}, ItemAmount: {point.itemAmount}");
-                
                 // Spawn a grid object at the real-world position corresponding to the point
                 var gridObject = Pool.Instance.SpawnObject(GetRealWorldPositionOfTheGrid(2, point), PoolItemType.Grid, null);
                 if (gridObject.TryGetComponent(out Grid grid))
