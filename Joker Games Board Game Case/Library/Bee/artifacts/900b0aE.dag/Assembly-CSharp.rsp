@@ -373,6 +373,7 @@
 "Assets/Scripts/Game Management/UIManager.cs"
 "Assets/Scripts/Item Management/ItemObject.cs"
 "Assets/Scripts/Item Management/Items.cs"
+"Assets/Scripts/Item Management/PrizeCollector.cs"
 "Assets/Scripts/Pool.cs"
 "Assets/Scripts/PoolItemType.cs"
 "Assets/Scripts/Utils/SmoothCameraFollow.cs"

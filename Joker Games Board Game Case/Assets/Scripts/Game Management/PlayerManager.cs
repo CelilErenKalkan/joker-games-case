@@ -24,6 +24,8 @@ namespace Game_Management
 
         private void CollectItems()
         {
+            int amount = PlayerDataManager.MapOrder[_currentGrid].itemAmount;
+            Actions.PrizesAppeared.Invoke(transform, amount);
             PlayerDataManager.Collect();
         }
         

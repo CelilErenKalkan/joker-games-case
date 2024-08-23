@@ -4,4 +4,5 @@ public enum PoolItemType
 	Dice = 1,
 	Player = 2,
 	AudioSource = 3,
+	Prize = 4,
 }

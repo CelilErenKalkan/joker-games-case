@@ -494,9 +494,16 @@ MonoBehaviour:
   - poolName: AudioSource
     prefabs:
     - {fileID: 3615868992121492332, guid: 24ed637beea825b42b4083ed5c0e889a, type: 3}
-    amount: 200
+    amount: 50
     expandable: 1
     poolItemType: 3
+    parent: {fileID: 0}
+  - poolName: Prize
+    prefabs:
+    - {fileID: 1703122467273237718, guid: b88b13082be87b84e88821346dfdf408, type: 3}
+    amount: 15
+    expandable: 1
+    poolItemType: 4
     parent: {fileID: 0}
   poolObjects: []
 --- !u!4 &653997233
@@ -1156,6 +1163,7 @@ GameObject:
   - component: {fileID: 889488914}
   - component: {fileID: 889488919}
   - component: {fileID: 889488918}
+  - component: {fileID: 889488920}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1297,6 +1305,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &889488920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889488913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a55512b27e3d41742b2f9485fbc42c27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bagIcon: {fileID: 959242499}
+  spawnRadius: 300
+  moveDuration: 0.5
+  delayBetweenMoves: 1
 --- !u!1 &959242498
 GameObject:
   m_ObjectHideFlags: 0
