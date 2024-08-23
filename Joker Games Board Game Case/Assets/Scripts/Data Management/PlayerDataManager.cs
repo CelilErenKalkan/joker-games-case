@@ -89,6 +89,18 @@ namespace Data_Management
             return count;
         }
 
+        public static Sprite GetCertainItemSprite(ItemType itemType)
+        {
+            foreach (var item in PlayerData.itemList)
+            {
+                if (item.GetItemType == itemType)
+                    return item.GetIcon;
+            }
+
+            var newItem = ItemFactory.CreateItem(itemType);
+            return newItem.GetIcon;
+        }
+
         public static void Collect()
         {
             var amount = MapOrder[PlayerData.currentGrid].itemAmount;

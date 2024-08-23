@@ -1,5 +1,6 @@
 using System.Collections;
 using Data_Management;
+using Item_Management;
 using UnityEngine;
 using Utils;
 
@@ -25,7 +26,8 @@ namespace Game_Management
         private void CollectItems()
         {
             int amount = PlayerDataManager.MapOrder[_currentGrid].itemAmount;
-            Actions.PrizesAppeared.Invoke(transform, amount);
+            ItemType type = PlayerDataManager.MapOrder[_currentGrid].itemType;
+            Actions.PrizesAppeared.Invoke(transform, amount, type);
             PlayerDataManager.Collect();
         }
         

@@ -1,4 +1,5 @@
 using System;
+using Item_Management;
 using UnityEngine;
 
 namespace Game_Management
@@ -17,6 +18,6 @@ namespace Game_Management
         public static Action<int> DiceResult;
         public static Action GridAppeared;
         public static Action GridHasFallen;
-        public static Action<Transform, int> PrizesAppeared;
+        public static Action<Transform, int, ItemType> PrizesAppeared;
     }
 }

@@ -1,15 +1,17 @@
 using System.Collections;
+using Data_Management;
 using Game_Management;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Item_Management
 {
     public class PrizeCollector : MonoBehaviour
     {
         public RectTransform bagIcon; // Reference to the bag icon in the UI
-        public float spawnRadius = 500f; // Radius around player to spawn prizes
-        public float moveDuration = 0.2f; // Duration to move to the bag icon
-        public float delayBetweenMoves = 0.2f; // Delay between each prize move
+        public float spawnRadius; // Radius around player to spawn prizes
+        public float moveDuration; // Duration to move to the bag icon
+        public float delayBetweenMoves; // Delay between each prize move
 
         private void OnEnable()
         {
@@ -22,7 +24,7 @@ namespace Item_Management
         }
         
         // Call this method to collect prizes
-        private void CollectPrizes(Transform player, int prizeAmount)
+        private void CollectPrizes(Transform player, int prizeAmount, ItemType prizeType)
         {
             // Convert player's world position to screen position
             Vector3 screenPos = Camera.main.WorldToScreenPoint(player.position);
@@ -32,6 +34,8 @@ namespace Item_Management
             {
                 Vector3 randomPos = GetRandomPosition(screenPos);
                 var prize = Pool.Instance.SpawnObject(randomPos, PoolItemType.Prize, transform);
+                if (prize.TryGetComponent(out Image image))
+                    image.sprite = PlayerDataManager.GetCertainItemSprite(prizeType);
 
                 // Start coroutine to move the prize to the bag icon
                 StartCoroutine(MovePrizeToBag(prize.transform));
