@@ -369,6 +369,7 @@
 "Assets/Scripts/Game Management/BackgroundMusicManager.cs"
 "Assets/Scripts/Game Management/GameManager.cs"
 "Assets/Scripts/Game Management/InventoryManager.cs"
+"Assets/Scripts/Game Management/ParticleManager.cs"
 "Assets/Scripts/Game Management/PlayerManager.cs"
 "Assets/Scripts/Game Management/UIManager.cs"
 "Assets/Scripts/Item Management/ItemObject.cs"

@@ -1152,6 +1152,7 @@ GameObject:
   - component: {fileID: 653997234}
   - component: {fileID: 653997236}
   - component: {fileID: 653997237}
+  - component: {fileID: 653997238}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1206,6 +1207,41 @@ MonoBehaviour:
     amount: 15
     expandable: 1
     poolItemType: 4
+    parent: {fileID: 0}
+  - poolName: PuffParticle
+    prefabs:
+    - {fileID: 195466, guid: 56c3274d2f9ec214ab584a80b5ce2d6d, type: 3}
+    amount: 1
+    expandable: 1
+    poolItemType: 5
+    parent: {fileID: 0}
+  - poolName: LightPuffParticle
+    prefabs:
+    - {fileID: 180820, guid: a07608802ac497743a7f19f6633fdd70, type: 3}
+    amount: 1
+    expandable: 1
+    poolItemType: 6
+    parent: {fileID: 0}
+  - poolName: TeleportedParticle
+    prefabs:
+    - {fileID: 107778, guid: e6b0c8eedb7b4b148b2d830fdcf06603, type: 3}
+    amount: 1
+    expandable: 1
+    poolItemType: 7
+    parent: {fileID: 0}
+  - poolName: BeforeTeleportationParticle
+    prefabs:
+    - {fileID: 113868, guid: 72eec0d451241354eaba5dd6caf318ab, type: 3}
+    amount: 1
+    expandable: 1
+    poolItemType: 8
+    parent: {fileID: 0}
+  - poolName: AfterTeleportationParticle
+    prefabs:
+    - {fileID: 107252, guid: ce5715dcf97590b4cbec21f0ed7cf1ed, type: 3}
+    amount: 1
+    expandable: 1
+    poolItemType: 9
     parent: {fileID: 0}
   poolObjects: []
 --- !u!4 &653997233
@@ -1293,6 +1329,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ca66ceb8d31582a479ec62630e7e6a99, type: 3}
   - {fileID: 8300000, guid: 6c793aa0c7b73624ba11227ade4887c3, type: 3}
   - {fileID: 8300000, guid: b66ac730ec0da44088611607c5681e57, type: 3}
+--- !u!114 &653997238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 653997231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5411f79d31328646a13e0943cbe2017, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &686791069
 GameObject:
   m_ObjectHideFlags: 0
@@ -2880,7 +2928,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.23851903, g: 0.69259495, b: 0.754717, a: 0}
+  m_BackGroundColor: {r: 0.9056604, g: 0.8290616, b: 0.2007832, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

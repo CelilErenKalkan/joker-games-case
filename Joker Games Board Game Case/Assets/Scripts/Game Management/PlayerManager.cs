@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Data_Management;
 using Item_Management;
@@ -10,6 +9,7 @@ namespace Game_Management
     public class PlayerManager : MonoBehaviour
     {
         private GameManager _gameManager;
+        private ParticleManager _particleManager;
         private int _currentGrid;
         private Animator _animator;
         private int _moveCount;
@@ -18,6 +18,7 @@ namespace Game_Management
         private void OnEnable()
         {
             _gameManager = GameManager.Instance;
+            _particleManager = ParticleManager.Instance;
             _currentGrid = PlayerDataManager.PlayerData.currentGrid;
             if (TryGetComponent(out Animator animator)) _animator = animator;
 
@@ -32,14 +33,51 @@ namespace Game_Management
             Actions.GameEnd -= OnGameEnd;
         }
 
+        private void CallParticle(ParticleType particleType, float y = 0.5f, float time = 1)
+        {
+            var position = transform.position;
+            position.y += y;
+            _particleManager.CallParticle(particleType, position, time);
+        }
+
+        #region Particle Calls
+
+        private void CallLightPuffParticle()
+        {
+            CallParticle(ParticleType.LightPuff);
+        }
+
+        private void CallPuffParticle()
+        {
+            CallParticle(ParticleType.Puff);
+        }
+        
+        private void CallTeleportParticle()
+        {
+            CallParticle(ParticleType.Teleported, 1.0f);
+        }
+
+        private void CallBeforeTeleportationParticle()
+        {
+            CallParticle(ParticleType.BeforeTeleportation, 1.0f, 2.0f);
+        }
+        
+        private void CallAfterTeleportationParticle()
+        {
+            CallParticle(ParticleType.BeforeTeleportation, 1.0f);
+        }
+
+        #endregion
+
         #region Event Calls
 
         private void PlayerStepped() => Actions.PlayerStep?.Invoke();
         private void PlayerFinalStepped() => Actions.PlayerFinalStep?.Invoke();
         private void PlayerTeleportIn() => Actions.PlayerTeleportIn?.Invoke();
         private void PlayerTeleportOut() => Actions.PlayerTeleportOut?.Invoke();
+        
 
-            #endregion
+        #endregion
 
         private void CollectItems()
         {
@@ -80,7 +118,8 @@ namespace Game_Management
         {
             // Rotate before initiating the jump to ensure the object faces the next grid
             RotateToNextGrid();
-            //_animator.SetTrigger(_moveCount > 1 ? "Jump" : "FinalJump");
+            
+            
             _animator.Play(_moveCount > 1 ? "Jump_To_New_Grid" : "Final_Jump");
         }
         
@@ -101,6 +140,7 @@ namespace Game_Management
             _currentGrid = 0;
             transform.position = _gameManager.gameMap[_currentGrid].position;
             _moveCount--;
+            
             RotateToNextGrid();
 
             yield return 1.0f.GetWait();

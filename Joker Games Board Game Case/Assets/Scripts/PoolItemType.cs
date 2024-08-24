@@ -5,4 +5,9 @@ public enum PoolItemType
 	Player = 2,
 	AudioSource = 3,
 	Prize = 4,
+	PuffParticle = 5,
+	LightPuffParticle = 6,
+	TeleportedParticle = 7,
+	BeforeTeleportationParticle = 8,
+	AfterTeleportationParticle = 9,
 }
