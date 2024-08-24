@@ -8,8 +8,8 @@ namespace Game_Management
     public class UIManager : MonoBehaviour
     {
         // Public GameObjects and Buttons
-        public GameObject panelMainGameObject, menuGameObject;
-        public Button buttonLoadGame, buttonNewGame, buttonDiceRoll, buttonReturnToMainMenu, buttonAudio, buttonVibration, openBag, closeBag, buttonDiceAmount;
+        public GameObject menuGameObject;
+        public Button buttonLoadGame, buttonNewGame, buttonDiceRoll, buttonReturnToMainMenu, buttonAudio, openBag, closeBag, buttonDiceAmount;
 
         // Private variables for UI elements and data
         private Animator _animator;
@@ -67,7 +67,6 @@ namespace Game_Management
 
         private void GameStartAnimation(bool isStarting)
         {
-            panelMainGameObject.SetActive(!isStarting);
             _animator.SetTrigger(isStarting ? "StartGame" : "EndGame");
         }
 
@@ -101,16 +100,7 @@ namespace Game_Management
 
             // Toggle audio mute state and update button sprite
             PlayerDataManager.PlayerData.isMuted = !PlayerDataManager.PlayerData.isMuted;
-            SetAudioOrVibration(true);
-        }
-
-        private void ChangeVibrationMod()
-        {
-            Actions.ButtonTapped?.Invoke();
-            
-            // Toggle vibration state and update button sprite
-            PlayerDataManager.PlayerData.isVibrationOff = !PlayerDataManager.PlayerData.isVibrationOff;
-            SetAudioOrVibration(false);
+            SetAudio();
         }
 
         private void ReturnToMainMenu()
@@ -158,20 +148,11 @@ namespace Game_Management
 
         #region Setting Variables
 
-        private void SetAudioOrVibration(bool isAudio)
+        private void SetAudio()
         {
-            switch (isAudio)
-            {
-                case true:
-                    _audioButtonImage.sprite = PlayerDataManager.PlayerData.isMuted ? _mute : _unmute;
-                    Actions.AudioChanged?.Invoke(PlayerDataManager.PlayerData.isMuted);
-                    break;
-                case false:
-                    _vibrationButtonImage.sprite = PlayerDataManager.PlayerData.isVibrationOff ? _vOff : _vOn;
-                    Actions.VibrationChanged?.Invoke(PlayerDataManager.PlayerData.isVibrationOff);
-                    break;
-            }
-            
+            _audioButtonImage.sprite = PlayerDataManager.PlayerData.isMuted ? _mute : _unmute;
+            Actions.AudioChanged?.Invoke(PlayerDataManager.PlayerData.isMuted);
+
             PlayerDataManager.SaveData();
         }
         
@@ -189,11 +170,8 @@ namespace Game_Management
             }
             
             // Initialize button images and add listeners for button clicks
-            _audioButtonImage = buttonAudio.GetComponent<Image>();
-            _vibrationButtonImage = buttonVibration.GetComponent<Image>();
-
-            SetAudioOrVibration(true);
-            SetAudioOrVibration(false);
+            _audioButtonImage = buttonAudio.transform.GetChild(0).GetComponent<Image>();
+            SetAudio();
         }
 
         private void SetButtons()
@@ -203,7 +181,6 @@ namespace Game_Management
             buttonDiceRoll.onClick.AddListener(RollDice);
             buttonReturnToMainMenu.onClick.AddListener(ReturnToMainMenu);
             buttonAudio.onClick.AddListener(ChangeAudioMod);
-            buttonVibration.onClick.AddListener(ChangeVibrationMod);
             openBag.onClick.AddListener(()=> OpenBagAnimation(true));
             closeBag.onClick.AddListener(()=> OpenBagAnimation(false));
             buttonDiceAmount.onClick.AddListener(DiceAmountButtonAnimation);
