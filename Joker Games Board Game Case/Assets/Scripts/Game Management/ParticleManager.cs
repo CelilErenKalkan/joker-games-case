@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game_Management
@@ -19,11 +20,24 @@ namespace Game_Management
 
         private Pool _pool;
 
+        // Dictionary to cache ParticleType to PoolItemType mapping
+        private Dictionary<ParticleType, PoolItemType> _particleTypeMapping;
+
         // Ensure that the instance is unique and handle duplication
         private void Awake()
         {
             if (Instance != null && Instance != this) Destroy(this);
             else Instance = this;
+
+            // Initialize the dictionary
+            _particleTypeMapping = new Dictionary<ParticleType, PoolItemType>
+            {
+                { ParticleType.LightPuff, PoolItemType.LightPuffParticle },
+                { ParticleType.Puff, PoolItemType.PuffParticle },
+                { ParticleType.Teleported, PoolItemType.TeleportedParticle },
+                { ParticleType.BeforeTeleportation, PoolItemType.BeforeTeleportationParticle },
+                { ParticleType.AfterTeleportation, PoolItemType.AfterTeleportationParticle }
+            };
         }
 
         private void Start()
@@ -33,25 +47,15 @@ namespace Game_Management
 
         public void CallParticle(ParticleType particleType, Vector3 position, float time = 1)
         {
-            switch (particleType)
+            // Check if the particle type exists in the dictionary
+            if (_particleTypeMapping.TryGetValue(particleType, out PoolItemType poolItemType))
             {
-                case ParticleType.LightPuff:
-                    _pool.SpawnObject(position,PoolItemType.LightPuffParticle, null, time);
-                    break;
-                case ParticleType.Puff:
-                    _pool.SpawnObject(position,PoolItemType.PuffParticle, null, time);
-                    break;
-                case ParticleType.Teleported:
-                    _pool.SpawnObject(position,PoolItemType.TeleportedParticle, null, time);
-                    break;
-                case ParticleType.BeforeTeleportation:
-                    _pool.SpawnObject(position,PoolItemType.BeforeTeleportationParticle, null, time);
-                    break;
-                case ParticleType.AfterTeleportation:
-                    _pool.SpawnObject(position,PoolItemType.AfterTeleportationParticle, null, time);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(particleType), particleType, null);
+                _pool.SpawnObject(position, poolItemType, null, time);
+            }
+            else
+            {
+                Debug.LogError($"Unhandled particle type: {particleType}");
+                throw new ArgumentOutOfRangeException(nameof(particleType), particleType, null);
             }
         }
     }

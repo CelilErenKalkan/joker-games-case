@@ -7,20 +7,15 @@ namespace Game_Management
 {
     public class UIManager : MonoBehaviour
     {
-        // Public GameObjects and Buttons
         public GameObject menuGameObject;
         public Button buttonLoadGame, buttonNewGame, buttonDiceRoll, buttonReturnToMainMenu, buttonAudio, openBag, closeBag, buttonDiceAmount;
 
-        // Private variables for UI elements and data
         private Animator _animator;
         private Image _audioButtonImage;
-        private Image _vibrationButtonImage;
-
-        private Sprite _mute, _unmute, _vOff, _vOn;
+        private Sprite _mute, _unmute;
 
         private void OnEnable()
         {
-            // Subscribe to the NextTurn action when this object is enabled
             Actions.NextTurn += NextTurn;
             Actions.DiceAmountChanged += OnDiceAmountChanged;
             Actions.PrizeAddedToBag += OnPrizeAddedToBag;
@@ -28,7 +23,6 @@ namespace Game_Management
 
         private void OnDisable()
         {
-            // Unsubscribe from the NextTurn action when this object is disabled
             Actions.NextTurn -= NextTurn;
             Actions.DiceAmountChanged -= OnDiceAmountChanged;
             Actions.PrizeAddedToBag -= OnPrizeAddedToBag;
@@ -36,34 +30,43 @@ namespace Game_Management
 
         private void Start()
         {
-            // Set up sprites, button listeners, and dice amount texts
             SetSprites();
             SetButtons();
+
             if (buttonDiceAmount.transform.GetChild(2).TryGetComponent(out TMP_Text text))
                 text.text = "x" + PlayerDataManager.PlayerData.diceAmount;
 
             if (TryGetComponent(out Animator animator)) _animator = animator;
-            
-            // Hide specific UI elements if no map order is available
+
             if (PlayerDataManager.MapOrder.Count <= 0)
             {
                 menuGameObject.transform.GetChild(0).gameObject.SetActive(false);
             }
         }
 
+        #region Game Management
+
         public void LoadGame(bool isNew)
         {
             Actions.ButtonTapped?.Invoke();
-            
-            // Switch between new and loaded game states
-
             if (isNew) Actions.NewGame?.Invoke();
             else Actions.LoadGame?.Invoke();
-            
+
             GameStartAnimation(true);
         }
 
-        #region Animation
+        private void ReturnToMainMenu()
+        {
+            Actions.ButtonTapped?.Invoke();
+            PlayerDataManager.SaveData();
+            GameStartAnimation(false);
+            DiceButtonAnimation(false);
+            Actions.GameEnd?.Invoke();
+        }
+
+        #endregion
+
+        #region UI Animations
 
         private void GameStartAnimation(bool isStarting)
         {
@@ -79,7 +82,7 @@ namespace Game_Management
         {
             _animator.SetBool("DBOn", isOn);
         }
-        
+
         private void DiceAmountButtonAnimation()
         {
             _animator.SetBool("DAOn", true);
@@ -92,46 +95,26 @@ namespace Game_Management
 
         #endregion
 
-        #region Top Left Corner
+        #region Audio Management
 
         private void ChangeAudioMod()
         {
             Actions.ButtonTapped?.Invoke();
-
-            // Toggle audio mute state and update button sprite
             PlayerDataManager.PlayerData.isMuted = !PlayerDataManager.PlayerData.isMuted;
             SetAudio();
         }
 
-        private void ReturnToMainMenu()
+        private void SetAudio()
         {
-            Actions.ButtonTapped?.Invoke();
-            
-            // Save data and return to the main menu
+            _audioButtonImage.sprite = PlayerDataManager.PlayerData.isMuted ? _mute : _unmute;
+            Actions.AudioChanged?.Invoke(PlayerDataManager.PlayerData.isMuted);
             PlayerDataManager.SaveData();
-            GameStartAnimation(false);
-            DiceButtonAnimation(false);
-            Actions.GameEnd?.Invoke();
-        }
-
-        private void OnDiceAmountChanged(int amount)
-        {
-            _animator.SetBool("DAOn", false);
-            if (buttonDiceAmount.transform.GetChild(2).TryGetComponent(out TMP_Text text))
-                text.text = "x" + amount;
         }
 
         #endregion
 
-        #region In Game
+        #region Dice Management
 
-        public void UpdateDiceAmount()
-        {
-            // Update the dice amount based on the current transform index
-            int amount = transform.GetSiblingIndex() + 1;
-            PlayerDataManager.UpdateDiceAmount(amount);
-        }
-        
         private void RollDice()
         {
             Actions.ButtonTapped?.Invoke();
@@ -144,32 +127,33 @@ namespace Game_Management
             DiceButtonAnimation(true);
         }
 
+        private void OnDiceAmountChanged(int amount)
+        {
+            _animator.SetBool("DAOn", false);
+            if (buttonDiceAmount.transform.GetChild(2).TryGetComponent(out TMP_Text text))
+                text.text = "x" + amount;
+        }
+
+        public void UpdateDiceAmount()
+        {
+            int amount = transform.GetSiblingIndex() + 1;
+            PlayerDataManager.UpdateDiceAmount(amount);
+        }
+
         #endregion
 
-        #region Setting Variables
+        #region UI Setup
 
-        private void SetAudio()
-        {
-            _audioButtonImage.sprite = PlayerDataManager.PlayerData.isMuted ? _mute : _unmute;
-            Actions.AudioChanged?.Invoke(PlayerDataManager.PlayerData.isMuted);
-
-            PlayerDataManager.SaveData();
-        }
-        
         private void SetSprites()
         {
-            // Load sprite assets from Resources
             _mute = Resources.Load<Sprite>("UI/ui_icon_main_menu_mute");
             _unmute = Resources.Load<Sprite>("UI/ui_icon_main_menu_unmute");
-            _vOff = Resources.Load<Sprite>("UI/ui_icon_main_menu_vibration_off");
-            _vOn = Resources.Load<Sprite>("UI/ui_icon_main_menu_vibration_on");
 
-            if (_mute == null || _unmute == null || _vOff == null || _vOn == null)
+            if (_mute == null || _unmute == null)
             {
                 Debug.LogError("One or more sprites failed to load. Check paths and ensure assets are in Resources folder.");
             }
-            
-            // Initialize button images and add listeners for button clicks
+
             _audioButtonImage = buttonAudio.transform.GetChild(0).GetComponent<Image>();
             SetAudio();
         }
@@ -181,8 +165,8 @@ namespace Game_Management
             buttonDiceRoll.onClick.AddListener(RollDice);
             buttonReturnToMainMenu.onClick.AddListener(ReturnToMainMenu);
             buttonAudio.onClick.AddListener(ChangeAudioMod);
-            openBag.onClick.AddListener(()=> OpenBagAnimation(true));
-            closeBag.onClick.AddListener(()=> OpenBagAnimation(false));
+            openBag.onClick.AddListener(() => OpenBagAnimation(true));
+            closeBag.onClick.AddListener(() => OpenBagAnimation(false));
             buttonDiceAmount.onClick.AddListener(DiceAmountButtonAnimation);
         }
 

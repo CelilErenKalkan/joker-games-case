@@ -39,11 +39,6 @@ namespace Game_Management
             audioSource.volume = isMuted ? 0 : volume;
         }
 
-        private void StartMusic()
-        {
-            
-        }
-
         private void PlayInGameMusic()
         {
             audioSource.pitch = 1f / Time.timeScale;

@@ -10,39 +10,42 @@ namespace Game_Management
     public class InventoryManager : MonoBehaviour
     {
         [SerializeField] private Transform slotsParent;
-        private readonly List<Image> slotImages = new List<Image>();
-        private readonly List<TMP_Text> itemAmountList = new List<TMP_Text>();
-
         [SerializeField] private Button openInventory, closeInventory;
         [SerializeField] private List<Item> _itemList;
 
-        // Start is called before the first frame update
+        private readonly List<Image> slotImages = new List<Image>();
+        private readonly List<TMP_Text> itemAmountList = new List<TMP_Text>();
+
         private void Start()
         {
+            // Initialize item list and add button listeners
             _itemList = PlayerDataManager.PlayerData.itemList;
             openInventory.onClick.AddListener(OpenBag);
             closeInventory.onClick.AddListener(CloseBag);
+            
+            // Set up inventory slots
             SetSlots();
         }
 
         private void OpenBag()
         {
             Actions.ButtonTapped?.Invoke();
-
             SetInventoryList();
         }
 
         private void CloseBag()
         {
             Actions.ButtonTapped?.Invoke();
-            
             SetInventoryList();
         }
 
         private void SetInventoryList()
         {
+            // Update inventory UI with item icons and amounts
             for (var i = 0; i < slotsParent.childCount; i++)
             {
+                Debug.Log(_itemList);
+                
                 if (i < _itemList.Count)
                 {
                     slotImages[i].sprite = _itemList[i].GetIcon;
@@ -60,11 +63,21 @@ namespace Game_Management
 
         private void SetSlots()
         {
+            // Set up slot images and item amount text fields
             for (var i = 0; i < slotsParent.childCount; i++)
             {
-                if (slotsParent.GetChild(i).TryGetComponent(out Image image)) slotImages.Add(image);
-                image.enabled = false;
-                if (slotsParent.GetChild(i).GetChild(0).TryGetComponent(out TMP_Text text)) itemAmountList.Add(text);
+                var slot = slotsParent.GetChild(i);
+                
+                if (slot.TryGetComponent(out Image image))
+                {
+                    slotImages.Add(image);
+                    image.enabled = false; // Initially disable slot images
+                }
+
+                if (slot.GetChild(0).TryGetComponent(out TMP_Text text))
+                {
+                    itemAmountList.Add(text);
+                }
             }
         }
     }

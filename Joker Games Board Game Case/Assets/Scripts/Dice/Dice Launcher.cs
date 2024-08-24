@@ -45,7 +45,7 @@ namespace Dice
                 var dice = _pool.SpawnObject(SelectRandomSpawnPoint(), PoolItemType.Dice, null);
                 _spawnedDices.Add(dice);
             }
-            Time.timeScale = 3; // Increases time scale for faster dice rolling
+            Time.timeScale = 2; // Increases time scale for faster dice rolling
         }
 
         // Removes all spawned dice and returns them to the pool

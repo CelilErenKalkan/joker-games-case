@@ -16,7 +16,6 @@ namespace Data_Management
         public int diceAmount;
 
         public bool isMuted;
-        public bool isVibrationOff;
 
         // Constructor with default values
         public PlayerData(List<Item> itemList)
@@ -26,7 +25,6 @@ namespace Data_Management
             currentGrid = 0;
             diceAmount = 2;
             isMuted = false;
-            isVibrationOff = false;
         }
     }
 
@@ -46,6 +44,7 @@ namespace Data_Management
             {
                 PlayerData = FileHandler.ReadFromJson<PlayerData>("PlayerData.json");
                 if (PlayerData.diceAmount <= 0) PlayerData.diceAmount = 2;
+                PlayerData.itemList ??= new List<Item>();
                 SaveData();
             }
             catch (Exception ex)

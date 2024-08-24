@@ -7,23 +7,16 @@ namespace Game_Management
 {
     public class GameManager : MonoBehaviour
     {
-        // Public static property to access the instance
         public static GameManager Instance { get; private set; }
-
         public bool isPlayable;
         public List<Transform> gameMap;
 
-        // Ensure that the instance is unique and handle duplication
         private void Awake()
         {
-            if (Instance != null && Instance != this) Destroy(this);
-            else Instance = this;
-
-            // Load player data
-            PlayerDataManager.LoadData();
-            PlayerDataManager.LoadMapOrder();
+            HandleSingletonInstance();
+            LoadGameData();
         }
-        
+
         private void OnEnable()
         {
             Actions.GameStart += OnGameStart;
@@ -32,22 +25,56 @@ namespace Game_Management
 
         private void OnDisable()
         {
-            
             Actions.GameStart -= OnGameStart;
             Actions.GameEnd -= OnGameEnd;
         }
 
+        #region Game Lifecycle
+
         private void OnGameStart()
         {
-            var player =Pool.Instance.SpawnObject(gameMap[PlayerDataManager.PlayerData.currentGrid].transform.position, PoolItemType.Player, null);
-            if (Camera.main != null) Camera.main.GetComponent<SmoothCameraFollow>().target = player.transform;
+            // Spawn the player at the current grid position
+            var player = Pool.Instance.SpawnObject(gameMap[PlayerDataManager.PlayerData.currentGrid].transform.position, PoolItemType.Player, null);
+
+            // Assign the camera to follow the player
+            if (Camera.main != null)
+            {
+                Camera.main.GetComponent<SmoothCameraFollow>().target = player.transform;
+            }
+
             isPlayable = true;
         }
-        
+
         private void OnGameEnd()
         {
-            if (Camera.main != null) Camera.main.GetComponent<SmoothCameraFollow>().target = null;
+            // Reset camera target and set the game as unplayable
+            if (Camera.main != null)
+            {
+                Camera.main.GetComponent<SmoothCameraFollow>().target = null;
+            }
+
             isPlayable = false;
+        }
+
+        #endregion
+
+        private void HandleSingletonInstance()
+        {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(this);
+            }
+            else
+            {
+                Instance = this;
+            }
+        }
+
+        private void LoadGameData()
+        {
+            // Load player data and map order
+            PlayerDataManager.LoadData();
+            PlayerDataManager.LoadMapOrder();
         }
     }
 }
