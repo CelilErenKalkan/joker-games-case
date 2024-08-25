@@ -360,6 +360,8 @@ public class Pool : MonoBehaviour
     }
 }
 
+#if UNITY_EDITOR
+
 [CustomEditor(typeof(Pool))]
 public class PoolEditor : Editor
 {
@@ -374,3 +376,5 @@ public class PoolEditor : Editor
         }
     }
 }
+
+#endif
