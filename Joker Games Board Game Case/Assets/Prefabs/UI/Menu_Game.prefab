@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: NEW GAME
+  m_text: NEW MAP
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2ef5ae065e0ef43b6b8f5a27e1cd1bd9, type: 2}
   m_sharedMaterial: {fileID: -3680457063488810944, guid: 2ef5ae065e0ef43b6b8f5a27e1cd1bd9, type: 2}
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LOAD GAME
+  m_text: LOAD MAP
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2ef5ae065e0ef43b6b8f5a27e1cd1bd9, type: 2}
   m_sharedMaterial: {fileID: -3680457063488810944, guid: 2ef5ae065e0ef43b6b8f5a27e1cd1bd9, type: 2}

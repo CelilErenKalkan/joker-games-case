@@ -22,7 +22,6 @@ namespace Game_Management
         public static Action DiceToFloorCollision;
         public static Action ButtonTapped;
         public static Action<bool> AudioChanged;
-        public static Action<bool> VibrationChanged;
         public static Action<int> RollDice;
         public static Action<int> DiceResult;
         public static Action<int> DiceAmountChanged;

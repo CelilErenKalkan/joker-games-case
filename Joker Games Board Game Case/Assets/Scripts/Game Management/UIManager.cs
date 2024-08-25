@@ -9,6 +9,7 @@ namespace Game_Management
     {
         public GameObject menuGameObject;
         public Button buttonLoadGame, buttonNewGame, buttonDiceRoll, buttonReturnToMainMenu, buttonAudio, openBag, closeBag, buttonDiceAmount;
+        public TMP_Text textDiceResult;
 
         private Animator _animator;
         private Image _audioButtonImage;
@@ -19,6 +20,7 @@ namespace Game_Management
             Actions.NextTurn += NextTurn;
             Actions.DiceAmountChanged += OnDiceAmountChanged;
             Actions.PrizeAddedToBag += OnPrizeAddedToBag;
+            Actions.MoveForward += OnDiceResult;
         }
 
         private void OnDisable()
@@ -26,6 +28,7 @@ namespace Game_Management
             Actions.NextTurn -= NextTurn;
             Actions.DiceAmountChanged -= OnDiceAmountChanged;
             Actions.PrizeAddedToBag -= OnPrizeAddedToBag;
+            Actions.MoveForward -= OnDiceResult;
         }
 
         private void Start()
@@ -87,6 +90,11 @@ namespace Game_Management
         {
             _animator.SetBool("DAOn", true);
         }
+        
+        private void PlayDiceResultAnimation()
+        {
+            _animator.Play("Show_Dice_Result");
+        }
 
         private void OnPrizeAddedToBag()
         {
@@ -120,6 +128,12 @@ namespace Game_Management
             Actions.ButtonTapped?.Invoke();
             Actions.RollDice?.Invoke(PlayerDataManager.PlayerData.diceAmount);
             DiceButtonAnimation(false);
+        }
+
+        private void OnDiceResult(int result)
+        {
+            textDiceResult.text = result.ToString();
+            PlayDiceResultAnimation();
         }
 
         private void NextTurn()
