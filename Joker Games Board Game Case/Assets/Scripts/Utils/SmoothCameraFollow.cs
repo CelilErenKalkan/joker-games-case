@@ -63,7 +63,7 @@ namespace Utils
             Vector3 centerPosition = gridBounds.center;
 
             float distance = CalculateDistanceToCoverGrid(gridBounds);
-            Vector3 desiredPosition = centerPosition - transform.forward * distance;
+            Vector3 desiredPosition = centerPosition - transform.forward * distance * 1.2f;
 
             transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
 
