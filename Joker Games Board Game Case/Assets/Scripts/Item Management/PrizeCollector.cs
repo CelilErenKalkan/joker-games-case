@@ -10,6 +10,7 @@ namespace Item_Management
 {
     public class PrizeCollector : MonoBehaviour
     {
+        private ParticleManager _particleManager;
         public RectTransform bagIcon; // Reference to the bag icon in the UI
         public float spawnRadius; // Radius around player to spawn prizes
         public float moveDuration; // Duration to move to the bag icon
@@ -26,7 +27,12 @@ namespace Item_Management
         {
             Actions.PrizesAppeared -= CollectPrizes;
         }
-        
+
+        private void Start()
+        {
+            _particleManager = ParticleManager.Instance;
+        }
+
         // Call this method to collect prizes
         private void CollectPrizes(Transform player, int prizeAmount, ItemType prizeType)
         {
