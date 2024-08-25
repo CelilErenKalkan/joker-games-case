@@ -1619,7 +1619,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 56
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8a00c32ce5fbe4494ab6807d371444d6, type: 2}
   m_sharedMaterial: {fileID: -3680457063488810944, guid: 8a00c32ce5fbe4494ab6807d371444d6, type: 2}
@@ -1646,12 +1646,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 164.05
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 200
+  m_fontSizeMax: 250
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -6819,8 +6819,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4408044552889523330, guid: 1d1a4608ddae5f74fa889aa1c22a61d2, type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4408044552889523330, guid: 1d1a4608ddae5f74fa889aa1c22a61d2, type: 3}
       propertyPath: far clip plane
       value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4408044552889523330, guid: 1d1a4608ddae5f74fa889aa1c22a61d2, type: 3}
+      propertyPath: near clip plane
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4408044552889523330, guid: 1d1a4608ddae5f74fa889aa1c22a61d2, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.101960786
+      objectReference: {fileID: 0}
+    - target: {fileID: 4408044552889523330, guid: 1d1a4608ddae5f74fa889aa1c22a61d2, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.94509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 4408044552889523330, guid: 1d1a4608ddae5f74fa889aa1c22a61d2, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.81960785
       objectReference: {fileID: 0}
     - target: {fileID: 7219046224197442896, guid: 1d1a4608ddae5f74fa889aa1c22a61d2, type: 3}
       propertyPath: m_Name
