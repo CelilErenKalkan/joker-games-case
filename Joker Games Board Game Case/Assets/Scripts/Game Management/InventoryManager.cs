@@ -16,6 +16,16 @@ namespace Game_Management
         private readonly List<Image> slotImages = new List<Image>();
         private readonly List<TMP_Text> itemAmountList = new List<TMP_Text>();
 
+        private void OnEnable()
+        {
+            Actions.PrizeAddedToBag += SetInventoryList;
+        }
+
+        private void OnDisable()
+        {
+            Actions.PrizeAddedToBag -= SetInventoryList;
+        }
+        
         private void Start()
         {
             // Initialize item list and add button listeners
