@@ -15,7 +15,7 @@ C:/Users/celil/OneDrive/Belgeler/GitHub/joker-games-case/Joker Games Board Game 
 -logFile
 Logs/AssetImportWorker1.log
 -srvPort
-54394
+55164
 Successfully changed project path to: C:/Users/celil/OneDrive/Belgeler/GitHub/joker-games-case/Joker Games Board Game Case
 C:/Users/celil/OneDrive/Belgeler/GitHub/joker-games-case/Joker Games Board Game Case
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -49,14 +49,14 @@ C:/Users/celil/OneDrive/Belgeler/GitHub/joker-games-case/Joker Games Board Game 
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [9980]  Target information:
+Player connection [16548]  Target information:
 
-Player connection [9980]  * "[IP] 192.168.1.64 [Port] 0 [Flags] 2 [Guid] 3724305683 [EditorId] 3724305683 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-HT1N6QB) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Player connection [16548]  * "[IP] 192.168.1.64 [Port] 0 [Flags] 2 [Guid] 1989317189 [EditorId] 1989317189 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-HT1N6QB) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
-Player connection [9980] Host joined multi-casting on [225.0.0.222:54997]...
-Player connection [9980] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [16548] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [16548] Host joined alternative multi-casting on [225.0.0.222:34997]...
 [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-Refreshing native plugins compatible for Editor in 12.30 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 9.02 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2022.3.42f1 (2dcb6a0abc42)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2022.3.42f1-x86_64/Editor/Data/Resources/UnitySubsystems
@@ -72,51 +72,51 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2022.3.42f1-x86_64/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2022.3.42f1-x86_64/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2022.3.42f1-x86_64/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56900
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56576
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.42f1-x86_64/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.42f1-x86_64/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.42f1-x86_64/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.018012 seconds.
-- Loaded All Assemblies, in  0.425 seconds
+Registered in 0.013936 seconds.
+- Loaded All Assemblies, in  0.342 seconds
 Native extension for WindowsStandalone target not found
 [usbmuxd] Start listen thread
 [usbmuxd] Listen thread started
 Native extension for iOS target not found
 Native extension for Android target not found
-Android Extension - Scanning For ADB Devices 278 ms
+Android Extension - Scanning For ADB Devices 218 ms
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.651 seconds
-Domain Reload Profiling: 1072ms
-	BeginReloadAssembly (128ms)
+- Finished resetting the current domain, in  0.509 seconds
+Domain Reload Profiling: 849ms
+	BeginReloadAssembly (101ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (0ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
 		CreateAndSetChildDomain (1ms)
-	RebuildCommonClasses (35ms)
-	RebuildNativeTypeToScriptingClass (13ms)
-	initialDomainReloadingComplete (86ms)
-	LoadAllAssembliesAndSetupDomain (159ms)
-		LoadAssemblies (125ms)
+	RebuildCommonClasses (32ms)
+	RebuildNativeTypeToScriptingClass (11ms)
+	initialDomainReloadingComplete (62ms)
+	LoadAllAssembliesAndSetupDomain (134ms)
+		LoadAssemblies (99ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (156ms)
-			TypeCache.Refresh (155ms)
-				TypeCache.ScanAssembly (143ms)
+		AnalyzeDomain (131ms)
+			TypeCache.Refresh (130ms)
+				TypeCache.ScanAssembly (118ms)
 			ScanForSourceGeneratedMonoScriptInfo (0ms)
 			ResolveRequiredComponents (0ms)
-	FinalizeReload (652ms)
+	FinalizeReload (509ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (607ms)
+		SetupLoadedEditorAssemblies (472ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (445ms)
+			InitializePlatformSupportModulesInManaged (326ms)
 			SetLoadedEditorAssemblies (3ms)
 			RefreshPlugins (0ms)
 			BeforeProcessingInitializeOnLoad (2ms)
-			ProcessInitializeOnLoadAttributes (109ms)
-			ProcessInitializeOnLoadMethodAttributes (48ms)
+			ProcessInitializeOnLoadAttributes (102ms)
+			ProcessInitializeOnLoadMethodAttributes (39ms)
 			AfterProcessingInitializeOnLoad (0ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
@@ -125,63 +125,7 @@ Domain Reload Profiling: 1072ms
 Worker process is ready to serve import requests
 Caller must complete domain reload
 Begin MonoManager ReloadAssembly
-Symbol file data-0000024B8B668040 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.Timeline.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8B668040 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B694500A0 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\UnityEngine.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B6A4098E0 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.EditorCoroutines.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8B668040 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8B668040 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.Performance.Profile-Analyzer.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B694914B0 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B69497EC0 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Model.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8C0CC020 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8C0CC020 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8C0E4830 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8C0E4830 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8BE1AE30 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.Settings.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8BE1AE30 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8BE1EE40 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8C106240 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B69C0F430 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.TextMeshPro.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8C106240 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.VisualScripting.Core.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8C13EC50 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B6967BF50 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\UnityEditor.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8BEC4020 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.VisualScripting.Core.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B6967BF50 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.Rider.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B69683D60 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.VisualScripting.State.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B69683D60 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8BEF1A30 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8BF29040 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8B5F2290 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8BF29040 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.629 seconds
+- Loaded All Assemblies, in  0.617 seconds
 Native extension for WindowsStandalone target not found
 Native extension for iOS target not found
 Native extension for Android target not found
@@ -190,47 +134,47 @@ Package Manager log level set to [2]
 [Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
 [Package Manager] Cannot connect to Unity Package Manager local server
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.521 seconds
-Domain Reload Profiling: 1146ms
-	BeginReloadAssembly (144ms)
+- Finished resetting the current domain, in  0.539 seconds
+Domain Reload Profiling: 1152ms
+	BeginReloadAssembly (141ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (5ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (22ms)
+		CreateAndSetChildDomain (21ms)
 	RebuildCommonClasses (33ms)
 	RebuildNativeTypeToScriptingClass (11ms)
-	initialDomainReloadingComplete (42ms)
-	LoadAllAssembliesAndSetupDomain (393ms)
-		LoadAssemblies (310ms)
+	initialDomainReloadingComplete (41ms)
+	LoadAllAssembliesAndSetupDomain (387ms)
+		LoadAssemblies (296ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (169ms)
-			TypeCache.Refresh (151ms)
-				TypeCache.ScanAssembly (135ms)
-			ScanForSourceGeneratedMonoScriptInfo (12ms)
-			ResolveRequiredComponents (4ms)
-	FinalizeReload (522ms)
+		AnalyzeDomain (173ms)
+			TypeCache.Refresh (154ms)
+				TypeCache.ScanAssembly (139ms)
+			ScanForSourceGeneratedMonoScriptInfo (13ms)
+			ResolveRequiredComponents (5ms)
+	FinalizeReload (539ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (401ms)
+		SetupLoadedEditorAssemblies (408ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (35ms)
+			InitializePlatformSupportModulesInManaged (38ms)
 			SetLoadedEditorAssemblies (3ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (59ms)
-			ProcessInitializeOnLoadAttributes (275ms)
-			ProcessInitializeOnLoadMethodAttributes (20ms)
+			BeforeProcessingInitializeOnLoad (62ms)
+			ProcessInitializeOnLoadAttributes (277ms)
+			ProcessInitializeOnLoadMethodAttributes (19ms)
 			AfterProcessingInitializeOnLoad (9ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (5ms)
+		AwakeInstancesAfterBackupRestoration (6ms)
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
-Refreshing native plugins compatible for Editor in 3.69 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 3.80 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 3161 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 19 unused Assets / (55.2 KB). Loaded Objects now: 3637.
+Unloading 19 unused Assets / (55.3 KB). Loaded Objects now: 3637.
 Memory consumption went from 129.3 MB to 129.3 MB.
-Total: 2.679900 ms (FindLiveObjects: 0.259700 ms CreateObjectMapping: 0.084000 ms MarkObjects: 2.240700 ms  DeleteObjects: 0.094600 ms)
+Total: 2.583400 ms (FindLiveObjects: 0.221700 ms CreateObjectMapping: 0.083300 ms MarkObjects: 2.194900 ms  DeleteObjects: 0.082800 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
@@ -246,105 +190,3 @@ AssetImportParameters requested are different than current active one (requested
   custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Caller must complete domain reload
-Begin MonoManager ReloadAssembly
-Symbol file data-0000024B8C3D5850 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.Timeline.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B6A082240 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8D147020 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\UnityEngine.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B6A082240 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.EditorCoroutines.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B95E28030 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8D047010 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.Performance.Profile-Analyzer.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8BCC0020 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B6A1EF030 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Model.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8B888010 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8BCC0020 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B96E2FE40 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B69695050 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B6A1EF030 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.Settings.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B6A1EF030 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B96E33E50 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8BCC0020 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B96044020 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.TextMeshPro.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B96044020 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.VisualScripting.Core.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8B940440 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8BCC0020 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\UnityEditor.UI.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B69DC7010 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.VisualScripting.Core.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8BCC0020 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.Rider.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B6A1EF030 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.VisualScripting.State.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B6A1EF030 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8B940440 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B96316010 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8BF74020 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-Symbol file data-0000024B8D047010 doesn't match image C:\Users\celil\OneDrive\Belgeler\GitHub\joker-games-case\Joker Games Board Game Case\Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll
-Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.431 seconds
-Native extension for WindowsStandalone target not found
-Native extension for iOS target not found
-Native extension for Android target not found
-[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
-[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
-[Package Manager] Cannot connect to Unity Package Manager local server
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.881 seconds
-Domain Reload Profiling: 1308ms
-	BeginReloadAssembly (142ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (6ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (29ms)
-	RebuildCommonClasses (31ms)
-	RebuildNativeTypeToScriptingClass (11ms)
-	initialDomainReloadingComplete (29ms)
-	LoadAllAssembliesAndSetupDomain (213ms)
-		LoadAssemblies (278ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (12ms)
-			TypeCache.Refresh (5ms)
-				TypeCache.ScanAssembly (0ms)
-			ScanForSourceGeneratedMonoScriptInfo (0ms)
-			ResolveRequiredComponents (5ms)
-	FinalizeReload (882ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (379ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (38ms)
-			SetLoadedEditorAssemblies (3ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (65ms)
-			ProcessInitializeOnLoadAttributes (243ms)
-			ProcessInitializeOnLoadMethodAttributes (20ms)
-			AfterProcessingInitializeOnLoad (10ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (7ms)
