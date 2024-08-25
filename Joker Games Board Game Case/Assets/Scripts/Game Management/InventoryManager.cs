@@ -44,8 +44,6 @@ namespace Game_Management
             // Update inventory UI with item icons and amounts
             for (var i = 0; i < slotsParent.childCount; i++)
             {
-                Debug.Log(_itemList);
-                
                 if (i < _itemList.Count)
                 {
                     slotImages[i].sprite = _itemList[i].GetIcon;

@@ -255,14 +255,14 @@ namespace Board
         {
             foreach (var point in _mapOrder)
             {
+                yield return 0.1f.GetWait();
+                
                 // Spawn a grid object at the real-world position corresponding to the point
                 var gridObject = Pool.Instance.SpawnObject(GetRealWorldPositionOfTheGrid(2, point), PoolItemType.Grid, null);
                 if (gridObject.TryGetComponent(out Grid grid))
                 {
                     grid.SetGrid(point.itemType, point.itemAmount, _mapOrder.IndexOf(point));
                 }
-
-                yield return 0.1f.GetWait();
             }
 
             yield return 1.0f.GetWait();

@@ -1,6 +1,7 @@
-using System;
+using System.Collections;
 using Game_Management;
 using UnityEngine;
+using Utils;
 using Random = UnityEngine.Random;
 
 namespace Dice
@@ -9,17 +10,22 @@ namespace Dice
     {
         private GameManager _gameManager;
         private Rigidbody _rigidbody;
-        private bool _once;
+        private bool _resetAllowed;
 
         private void OnEnable()
         {
-            _once = true;
+            _resetAllowed = false;
             SetDice(); // Initialize dice settings
             Throw();   // Throw the dice with random force and torque
-            _once = false;
+            StartCoroutine(AllowReset());
         }
 
-        // Set variables of the dice and assign components
+        private IEnumerator AllowReset()
+        {
+            yield return 0.1f.GetWait(); // Adjust the delay as needed
+            _resetAllowed = true;
+        }
+
         private void SetDice()
         {
             _gameManager = GameManager.Instance;
@@ -29,22 +35,18 @@ namespace Dice
 
         #region Dice Mechanics
 
-        // Checks if the dice has stopped moving
         private bool IsDiceStill()
         {
             Vector3 velocity = _rigidbody.velocity;
             return Mathf.Abs(velocity.x) < 0.05f && Mathf.Abs(velocity.y) < 0.05f;
         }
 
-        // Checks if the dice is grounded (not moving vertically)
         private bool IsDiceGrounded() => _rigidbody.velocity.y == 0;
 
-        // Detects the result of the dice by checking its orientation
         private void DetectResult()
         {
             int result = 1;
 
-            // Determine the result based on the dice's orientation using cross and dot products
             if (Vector3.Cross(Vector3.up, transform.right).magnitude < 0.5f)
             {
                 result = Vector3.Dot(Vector3.up, transform.right) > 0 ? 6 : 1;
@@ -61,14 +63,12 @@ namespace Dice
             Actions.DiceResult?.Invoke(result);
         }
 
-        // Sets the dice on the platform with a random face facing up
         private void SetRandomFaceOnPlatform()
         {
             int[] angles = { -90, 0, 90, 180 };
             transform.localEulerAngles = new Vector3(angles[Random.Range(0, 4)], 0, 0);
         }
 
-        // Throws the dice with random force and rotation
         private void Throw()
         {
             _rigidbody.AddRelativeTorque(
@@ -85,7 +85,6 @@ namespace Dice
 
         #region Game Flow
 
-        // Resets the dice and checks for game state
         private void Reset()
         {
             if (_gameManager.isPlayable) DetectResult();
@@ -93,16 +92,14 @@ namespace Dice
 
         private void Update()
         {
-            if (IsDiceStill() && IsDiceGrounded() && !_once)
+            if (IsDiceStill() && IsDiceGrounded() && _resetAllowed)
             {
-                _once = true;
+                _resetAllowed = false;
                 Reset(); // Detect result and reset for next throw
             }
         }
 
         #endregion
-
-        #region Dice Collisions
 
         private void OnCollisionEnter(Collision collision)
         {
@@ -111,7 +108,5 @@ namespace Dice
             else
                 Actions.DiceToFloorCollision?.Invoke();
         }
-
-        #endregion
     }
 }

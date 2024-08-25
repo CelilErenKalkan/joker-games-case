@@ -44,7 +44,7 @@ namespace Data_Management
             {
                 PlayerData = FileHandler.ReadFromJson<PlayerData>("PlayerData.json");
                 if (PlayerData.diceAmount <= 0) PlayerData.diceAmount = 2;
-                PlayerData.itemList ??= new List<Item>();
+                RefactorItemList();
                 SaveData();
             }
             catch (Exception ex)
@@ -74,6 +74,23 @@ namespace Data_Management
 
         #region Inventory Management
 
+        private static void RefactorItemList()
+        {
+            PlayerData.itemList ??= new List<Item>();
+            var itemList = PlayerData.itemList;
+            
+            if (itemList.Count > 0)
+            {
+                for (var i = 0; i < itemList.Count; i++)
+                {
+                    var amount = itemList[i].itemAmount;
+                    var newItem = ItemFactory.CreateItem(itemList[i].GetItemType);
+                    newItem.itemAmount = amount;
+                    itemList[i] = newItem;
+                }
+            }
+        }
+        
         public static int GetCertainItemAmount(ItemType itemType)
         {
             if (PlayerData.itemList == null || PlayerData.itemList.Count <= 0) return 0;
@@ -95,7 +112,9 @@ namespace Data_Management
                 foreach (var item in PlayerData.itemList)
                 {
                     if (item.GetItemType == itemType)
-                        return item.GetIcon;
+                    {
+                        return item.GetIcon == null ? ItemFactory.CreateItem(itemType).GetIcon : item.GetIcon;
+                    }
                 }
             }
             
